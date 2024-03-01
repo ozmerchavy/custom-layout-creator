@@ -1,0 +1,12 @@
+.ElementPicker {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.ElementButton {
+  img {
+    width: 30px;
+    aspect-ratio: 1 / 1;
+  }
+}

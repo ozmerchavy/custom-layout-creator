@@ -1,8 +1,9 @@
 import layout from "../layout.module.css";
 import { useSelector } from "react-redux";
 import style from "./Canvas.module.css";
-import React from 'react';
-
+import {selectElement} from "../slices/canvasElements"
+import React, { useEffect, useState } from 'react';
+import { store} from "../store.js";
 
 function printbleDebugTree(node, depth = 0) {
   const indent = "  ".repeat(depth);
@@ -31,7 +32,11 @@ function printJSON(node, depth=0){
   return <div>{JSON.stringify(node,null,2)}</div>
 }
 
-function renderElement(node) {
+function elementClicked(elementID){
+  store.dispatch(selectElement(elementID));
+}
+
+function renderElement(node, idSelected) {
   if (typeof node === 'string') {
     return node;
   }
@@ -40,18 +45,27 @@ function renderElement(node) {
     .map(([prop, value]) => ({ [prop]: value }))
     .reduce((acc, cur) => ({ ...acc, ...cur }), {});
 
-  const children = Array.isArray(node.children) ? node.children.map(child => renderElement(child)) : node.children;
+  const children = Array.isArray(node.children) ? node.children.map(child => renderElement(child, idSelected)) : node.children;
 
-  return React.createElement(node.type, { style: cssProps }, ...children)
+  const props = { style: cssProps };
+  if (node.id == idSelected) {
+    props.className = style.selectedElement;
+  }
+
+  props.onClick = (event) => {
+    event.stopPropagation();
+    elementClicked(node.id)
+  }
+  return React.createElement(node.type, props, ...children)
 }
 
 
 export default function Canvas() {
-  const root = useSelector((state) => state.canvasElements.root);
+  const { root, idSelected } = useSelector((state) => state.canvasElements);
 
   return (
     <article className={layout.canvas}>
-      <div>{renderElement(root)}</div>
+      <div>{renderElement(root, idSelected)}</div>
     </article>
   );
 }

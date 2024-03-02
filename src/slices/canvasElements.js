@@ -93,7 +93,7 @@ export const canvasElements = createSlice({
   name: 'canvasElements',
   initialState: {
     root: exampleRootElement,
-    idSelected: null,
+    idSelected: 'div2',
   },
   reducers: {
     addElement: (state, { payload }) => {
@@ -106,9 +106,13 @@ export const canvasElements = createSlice({
         children: type === "button" ? "text" : [],
       })
     },
+    selectElement : (state, {payload} ) =>{
+      const elementId = payload;
+      state.idSelected = elementId
+    }
     
   },
 })
 
-export const { addElement } = canvasElements.actions
+export const { addElement, selectElement } = canvasElements.actions
 export default canvasElements.reducer

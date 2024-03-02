@@ -5,7 +5,7 @@ import {store} from "../store.js";
 import { useSelector, useDispatch } from 'react-redux'
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
 import { Button, Modal } from 'antd';
-import { CopyBlock } from 'react-code-blocks';
+import { CopyBlock, CodeBlock } from 'react-code-blocks';
 
 
 
@@ -25,7 +25,7 @@ function generateHTML(node ,depth) {
 
   let result = ``;
   if (depth == 0){
-    `<!DOCTYPE html>\n<html>\n<head>\n<title>Generated HTML</title>\n</head>\n<body>\n`
+    result += `<!DOCTYPE html>\n<html>\n<head>\n<title>Generated HTML</title>\n</head>\n<body>\n`
   }
 
   result += `<${node.type} id="${node.id}" style="${cssProps}">\n`;
@@ -75,6 +75,7 @@ export default function ReviewButton(){
         title="HTML Code"
         onOk={handleOk}
         onCancel={handleCancel}
+
         footer={[
           <Button key="back" onClick={handleCancel}>
             Return
@@ -84,7 +85,7 @@ export default function ReviewButton(){
           </Button>,
         ]}
       >
-         <CopyBlock
+         <CodeBlock
       text={generateHTML(root, 0)}
       language={"html"}
       showLineNumbers= {false}

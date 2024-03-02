@@ -8,13 +8,64 @@ const initialState = {
   cssProps: { position: 'relative', margin: '1rem' },
   children: [
     {
-      id: 'some-id',
-      type: "button",
-      cssProps: { margin: '1rem', padding: '1rem', color: 'grey' },
-      children: 'click me',
+      id: 'div1',
+      type: "div",
+      cssProps: { margin: '1rem', padding: '1rem', color: 'blue', backgroundColor: 'lightgreen' },
+      children: [
+        {
+          id: 'button1',
+          type: "button",
+          cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'white', backgroundColor: 'blue' },
+          children: 'Button 1',
+        },
+        {
+          id: 'div2',
+          type: "div",
+          cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightcoral' },
+          children: [
+            {
+              id: 'button2',
+              type: "button",
+              cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'white', backgroundColor: 'green' },
+              children: 'Button 2',
+            },
+            {
+              id: 'div3',
+              type: "div",
+              cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightgrey' },
+              children: [
+                {
+                  id: 'button3',
+                  type: "button",
+                  cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'black', backgroundColor: 'orange' },
+                  children: 'Button 3',
+                },
+                {
+                  id: 'div4',
+                  type: "div",
+                  cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightyellow' },
+                  children: [
+                    {
+                      id: 'button4',
+                      type: "button",
+                      cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'black', backgroundColor: 'yellow' },
+                      children: 'Button 4',
+                    }
+                  ],
+                }
+              ],
+            }
+          ],
+        }
+      ],
     }
   ],
 };
+
+
+
+
+
 
 
 function findObjectById(state, id) {

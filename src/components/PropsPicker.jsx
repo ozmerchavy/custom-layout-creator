@@ -48,7 +48,9 @@ return <article>
     <label>margin<input type="text"/>{cssProps.margin}</label>
     <label>padding<input type="text"/></label>
     <label>width<input type="text"/></label>
-
+    {
+      cssProps.backgroundColor == "green" && <p>it is green</p>
+    }
 
   </div>
 

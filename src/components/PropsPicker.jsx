@@ -20,7 +20,7 @@ function findAllDivsIds(node) {
 }
 
 export default function PropsPicker() {
-  const root = useSelector((state) => state.canvasElements);
+  const root = useSelector((state) => state.canvasElements.root);
   const dispatch = useDispatch();
 
   const allIds = findAllDivsIds(root);

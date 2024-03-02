@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 
-const initialState = {
+const exampleRootElement = {
   id: 'root',
   type: "div",
   cssProps: { position: 'relative', margin: '1rem' },
@@ -21,28 +21,33 @@ const initialState = {
         {
           id: 'div2',
           type: "div",
+
           cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightcoral' },
           children: [
             {
               id: 'button2',
               type: "button",
+
               cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'white', backgroundColor: 'green' },
               children: 'Button 2',
             },
             {
               id: 'div3',
               type: "div",
+
               cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightgrey' },
               children: [
                 {
                   id: 'button3',
                   type: "button",
+
                   cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'black', backgroundColor: 'orange' },
                   children: 'Button 3',
                 },
                 {
                   id: 'div4',
                   type: "div",
+
                   cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightyellow' },
                   children: [
                     {
@@ -61,10 +66,6 @@ const initialState = {
     }
   ],
 };
-
-
-
-
 
 
 
@@ -90,11 +91,14 @@ const makeId = (() => {
 
 export const canvasElements = createSlice({
   name: 'canvasElements',
-  initialState,
+  initialState: {
+    root: exampleRootElement,
+    idSelected: null,
+  },
   reducers: {
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
-      const parent = findObjectById(state, parentId);
+      const parent = findObjectById(state.root, parentId);
       parent.children.push({
         type,
         id: makeId(),
@@ -102,6 +106,7 @@ export const canvasElements = createSlice({
         children: type === "button" ? "text" : [],
       })
     },
+    
   },
 })
 

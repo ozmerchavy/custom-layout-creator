@@ -42,26 +42,16 @@ function renderElement(node) {
 
   const children = Array.isArray(node.children) ? node.children.map(child => renderElement(child)) : node.children;
 
-  if (node.type == "div"){
-    console.log("Hellop")
-
-    return <div style={cssProps}>{children}</div>;
-  }
-  else if (node.type == "button"){
-    console.log("Hey");
-    return <button style={cssProps}>{children}</button>;
-  }
+  return React.createElement(node.type, { style: cssProps }, ...children)
 }
 
 
 export default function Canvas() {
-  const root = useSelector((state) => state.canvasElements);
+  const root = useSelector((state) => state.canvasElements.root);
 
   return (
     <article className={layout.canvas}>
-      <pre>
-        <div>{renderElement(root)}</div>
-      </pre>
+      <div>{renderElement(root)}</div>
     </article>
   );
 }

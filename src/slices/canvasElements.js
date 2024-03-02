@@ -67,9 +67,7 @@ const exampleRootElement = {
   ],
 };
 
-
-
-function findObjectById(state, id) {
+export function findObjectById(state, id) {
   if (state.id === id) {
     return state;
   }
@@ -93,7 +91,7 @@ export const canvasElements = createSlice({
   name: 'canvasElements',
   initialState: {
     root: exampleRootElement,
-    idSelected: 'div2',
+    idSelected: undefined,
   },
   reducers: {
     addElement: (state, { payload }) => {
@@ -109,10 +107,16 @@ export const canvasElements = createSlice({
     selectElement : (state, {payload} ) =>{
       const elementId = payload;
       state.idSelected = elementId
+    },
+    modifySelectedElement: (state, {payload})=>{
+      const cssProps = payload;
+      const selectedElement = findObjectById(state.root, state.idSelected);
+      selectedElement.cssProps = { ...selectedElement.cssProps, ...cssProps };
     }
+
     
   },
 })
 
-export const { addElement, selectElement } = canvasElements.actions
+export const { addElement, selectElement, modifySelectedElement } = canvasElements.actions
 export default canvasElements.reducer

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from 'react-redux'
-import { addElement } from "../slices/canvasElements";
+import { addElement, findObjectById, modifySelectedElement } from "../slices/canvasElements";
 
 function findAllDivsIds(node) {
   const ids = [];
@@ -19,7 +19,48 @@ function findAllDivsIds(node) {
   return ids;
 }
 
+
+
 export default function PropsPicker() {
+  const { root, idSelected } = useSelector((store) => store.canvasElements)
+  const selectedElement = findObjectById(root, idSelected)
+  const dispatch = useDispatch()
+
+  if (!selectedElement) {
+    return <article>select elemtn...</article>
+  }
+
+  const cssProps = selectedElement.cssProps
+
+  const onChange = (prop, newValue) => {
+    dispatch(modifySelectedElement({[prop]: newValue}))
+  }
+  
+return <article>
+  <div action="none">
+    <p>selected element's id {idSelected}</p>
+
+    <label>
+      background color
+      <input type="text" value={cssProps.backgroundColor} onChange={(event) => onChange("backgroundColor", event.target.value)}/>
+    </label>
+
+    <label>margin<input type="text"/>{cssProps.margin}</label>
+    <label>padding<input type="text"/></label>
+    <label>width<input type="text"/></label>
+
+
+  </div>
+
+</article>
+
+}
+
+
+
+
+
+function ToDelete() {
   const root = useSelector((state) => state.canvasElements.root);
   const dispatch = useDispatch();
 

@@ -5,30 +5,12 @@ import {store} from "../store.js";
 import { useSelector, useDispatch } from 'react-redux'
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
 import { Button, Modal } from 'antd';
+import { CopyBlock } from 'react-code-blocks';
 
 
-function generateText(node, depth = 0) {
-  const indent = "  ".repeat(depth);
 
-  if (typeof node === 'string') {
-    return `${indent}"${node}"\n`
-  }
 
-  const cssProps = Object.entries(node.cssProps)
-    .map(([prop, value]) => `${prop}: ${value}`)
-    .join(", ");
-
-  let result = `${indent}${node.type}#${node.id} { ${cssProps} }\n`;
-
-  if (Array.isArray(node.children)) {
-    for (const child of node.children) {
-      result += generateText(child, depth + 1);
-    }
-  } else result += generateText(node.children, depth + 1);
-
-  return result;
-}
-function generateHTML(node) {
+function generateHTML(node ,depth) {
   if (typeof node === 'string') {
     return node; // Return text content directly
   }
@@ -41,20 +23,26 @@ function generateHTML(node) {
     })
     .join(" ");
 
-  let result = `<!DOCTYPE html>\n<html>\n<head>\n<title>Generated HTML</title>\n</head>\n<body>\n`;
+  let result = ``;
+  if (depth == 0){
+    `<!DOCTYPE html>\n<html>\n<head>\n<title>Generated HTML</title>\n</head>\n<body>\n`
+  }
 
   result += `<${node.type} id="${node.id}" style="${cssProps}">\n`;
 
   if (Array.isArray(node.children)) {
     for (const child of node.children) {
-      result += generateHTML(child);
+      result += generateHTML(child, depth+1);
     }
   } else {
-    result += generateHTML(node.children);
+    result += generateHTML(node.children, depth+1);
   }
 
-  result += `</${node.type}>\n</body>\n</html>\n`;
+  if (depth == 0 ){
 
+    result += `</${node.type}>\n</body>\n</html>\n`;
+  }
+  
   return result;
 }
 
@@ -96,7 +84,12 @@ export default function ReviewButton(){
           </Button>,
         ]}
       >
-        <p>{generateHTML(root, 0)}</p>
+         <CopyBlock
+      text={generateHTML(root, 0)}
+      language={"html"}
+      showLineNumbers= {false}
+      wrapLines
+    />
 
       </Modal>
     </>

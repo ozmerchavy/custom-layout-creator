@@ -3,69 +3,142 @@ import { createSlice } from '@reduxjs/toolkit'
 
 
 const exampleRootElement = {
-  id: 'root',
-  type: "div",
-  cssProps: { position: 'relative', margin: '1rem' },
-  children: [
+  "id": "root",
+  "type": "div",
+  "cssProps": {
+    "position": "relative",
+    "margin": "1rem",
+    "width": "auto",
+    "height": "auto",
+    "display": "block",
+    "color": "#000000",
+    "backgroundColor": "transparent"
+  },
+  "children": [
     {
-      id: 'div1',
-      type: "div",
-      cssProps: { margin: '1rem', padding: '1rem', color: 'blue', backgroundColor: 'lightgreen' },
-      children: [
+      "id": "div1",
+      "type": "div",
+      "cssProps": {
+        "margin": "1rem",
+        "padding": "1rem",
+        "color": "blue",
+        "backgroundColor": "lightgreen",
+        "width": "auto",
+        "height": "auto",
+        "display": "block",
+        "position": "static"
+      },
+      "children": [
         {
-          id: 'button1',
-          type: "button",
-          cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'white', backgroundColor: 'blue' },
-          children: 'Button 1',
+          "id": "button1",
+          "type": "button",
+          "cssProps": {
+            "margin": "0.5rem",
+            "padding": "0.5rem",
+            "color": "white",
+            "backgroundColor": "blue",
+            "width": "auto",
+            "height": "auto",
+            "display": "block",
+            "position": "static"
+          },
+          "children": "Button 1"
         },
         {
-          id: 'div2',
-          type: "div",
-
-          cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightcoral' },
-          children: [
+          "id": "div2",
+          "type": "div",
+          "cssProps": {
+            "margin": "1rem",
+            "padding": "1rem",
+            "backgroundColor": "lightcoral",
+            "width": "auto",
+            "height": "auto",
+            "display": "block",
+            "position": "static"
+          },
+          "children": [
             {
-              id: 'button2',
-              type: "button",
-
-              cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'white', backgroundColor: 'green' },
-              children: 'Button 2',
+              "id": "button2",
+              "type": "button",
+              "cssProps": {
+                "margin": "0.5rem",
+                "padding": "0.5rem",
+                "color": "white",
+                "backgroundColor": "green",
+                "width": "auto",
+                "height": "auto",
+                "display": "block",
+                "position": "static"
+              },
+              "children": "Button 2"
             },
             {
-              id: 'div3',
-              type: "div",
-
-              cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightgrey' },
-              children: [
+              "id": "div3",
+              "type": "div",
+              "cssProps": {
+                "margin": "1rem",
+                "padding": "1rem",
+                "backgroundColor": "lightgrey",
+                "width": "auto",
+                "height": "auto",
+                "display": "block",
+                "position": "static"
+              },
+              "children": [
                 {
-                  id: 'button3',
-                  type: "button",
-
-                  cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'black', backgroundColor: 'orange' },
-                  children: 'Button 3',
+                  "id": "button3",
+                  "type": "button",
+                  "cssProps": {
+                    "margin": "0.5rem",
+                    "padding": "0.5rem",
+                    "color": "black",
+                    "backgroundColor": "orange",
+                    "width": "auto",
+                    "height": "auto",
+                    "display": "block",
+                    "position": "static"
+                  },
+                  "children": "Button 3"
                 },
                 {
-                  id: 'div4',
-                  type: "div",
-
-                  cssProps: { margin: '1rem', padding: '1rem', backgroundColor: 'lightyellow' },
-                  children: [
+                  "id": "div4",
+                  "type": "div",
+                  "cssProps": {
+                    "margin": "1rem",
+                    "padding": "1rem",
+                    "backgroundColor": "lightyellow",
+                    "width": "auto",
+                    "height": "auto",
+                    "display": "block",
+                    "position": "static"
+                  },
+                  "children": [
                     {
-                      id: 'button4',
-                      type: "button",
-                      cssProps: { margin: '0.5rem', padding: '0.5rem', color: 'black', backgroundColor: 'yellow' },
-                      children: 'Button 4',
+                      "id": "button4",
+                      "type": "button",
+                      "cssProps": {
+                        "margin": "0.5rem",
+                        "padding": "0.5rem",
+                        "color": "black",
+                        "backgroundColor": "yellow",
+                        "width": "auto",
+                        "height": "auto",
+                        "display": "block",
+                        "position": "static"
+                      },
+                      "children": "Button 4"
                     }
-                  ],
+                  ]
                 }
-              ],
+              ]
             }
-          ],
+          ]
         }
-      ],
+      ]
     }
-  ],
-};
+  ]
+}
+
 
 export function findObjectById(state, id) {
   if (state.id === id) {
@@ -112,11 +185,16 @@ export const canvasElements = createSlice({
       const cssProps = payload;
       const selectedElement = findObjectById(state.root, state.idSelected);
       selectedElement.cssProps = { ...selectedElement.cssProps, ...cssProps };
+    },
+    modifyButtonText: (state, {payload})=>{
+      const newText = payload
+      const selectedElement = findObjectById(state.root, state.idSelected);
+      selectedElement.children = newText
     }
 
     
   },
 })
 
-export const { addElement, selectElement, modifySelectedElement } = canvasElements.actions
+export const { addElement, selectElement, modifySelectedElement, modifyButtonText } = canvasElements.actions
 export default canvasElements.reducer

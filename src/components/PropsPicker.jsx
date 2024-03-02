@@ -67,7 +67,7 @@ export default function PropsPicker() {
 
 
 
-return <article>
+return <article className={layout.PropsPicker}>
 <Form action="none">
   <p>selected element's id {idSelected}</p>
   <Form.Item label="Width">

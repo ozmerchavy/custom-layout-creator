@@ -1,8 +1,9 @@
 .App {
     display: grid;
     grid-template-areas:
-      "header header"
-      "canvas sider";
+      "header import"
+      "canvas sider"
+      "canvas review";
     grid-template-columns: 1fr 18rem;
     grid-template-rows: auto 1fr;
 
@@ -26,4 +27,12 @@
 
 .PropsPicker {
     grid-area: sider;
+}
+
+.ImportHTML{
+    grid-area: import;
+}
+
+.Review {
+    grid-area: review;
 }

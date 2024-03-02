@@ -76,7 +76,7 @@ export default function ImportHTML() {
   };
 
   return (
-    <div>
+    <div className={layout.Import}>
       <Upload {...props}>
         <Button icon={<UploadOutlined />}>Click to Upload --not working yet</Button>
       </Upload>

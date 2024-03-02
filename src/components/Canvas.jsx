@@ -40,7 +40,7 @@ export default function Canvas() {
   const { root, idSelected } = useSelector((state) => state.canvasElements);
 
   return (
-    <article className={layout.canvas}>
+    <article className={layout.Canvas}>
       <div>{renderElement(root, idSelected)}</div>
     </article>
   );

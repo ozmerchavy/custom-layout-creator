@@ -75,7 +75,7 @@ export default function ReviewButton(){
     setOpen(false);
   };
   return (
-    <>
+    <article className={layout.ReviewButton}>
       <Button type="primary" onClick={showModal}>
         Review and Export HTML
       </Button>
@@ -102,7 +102,7 @@ export default function ReviewButton(){
     />
 
       </Modal>
-    </>
+      </article>
   );
 }
 

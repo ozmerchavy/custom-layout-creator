@@ -1,26 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const exampleState = [
-  {
-    id: '',
-    type: "div",
-    cssProps: { margin: '', color: '' },
-    children: [
-      {
-        id: '',
-        type: "button",
-        cssProps: { margin: '', color: '' },
-        children: 'hi',
-      }
-    ]
-  },
-  {
-    id: '',
-    type: "button",
-    cssProps: { margin: '', color: '' },
-    children: 'hi',
-  }
-]
+
 
 const initialState = {
   id: 'root',

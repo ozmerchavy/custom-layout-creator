@@ -3,8 +3,7 @@ import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from 'react-redux'
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
-import { Input, Form, InputNumber, Select, Space } from 'antd';
-
+import { Input, Form, InputNumber, Select, ColorPicker  } from 'antd';
 
 
 const selectUnit = (
@@ -60,7 +59,6 @@ export default function PropsPicker() {
     console.log("changing", prop, "to be", newValue)
     dispatch(modifySelectedElement({[prop]: newValue}))
 
- 
   }
   const modifyText = (newText) => {
     dispatch (modifyButtonText(newText))
@@ -79,9 +77,17 @@ return <article>
   <Form.Item label="Height">
     <InputNumber addonAfter={selectUnit} value={cssProps.height} onChange={(newValue) => onChange("height", newValue)} />
   </Form.Item>
+
+  <Form.Item label="Background Color">
+  <ColorPicker
+    value={cssProps.backgroundColor} showText
+    onChange={(color) => onChange("backgroundColor", color.toHexString())}
+    placement="topLeft"
+  />
+</Form.Item>
  
  {(selectedElement.type == "button") &&<Form.Item label="Button Text"><Input type="text" disabled={selectedElement.type !== "button"} value={selectedElement.type == "button" ? selectedElement.children : "only for buttons"} onChange={(event) => modifyText(event.target.value)} /></Form.Item> }
- {(selectedElement.type == "button") && (<Form.Item label="Text Color"><Input type="text" disabled={selectedElement.type !== "button"} value={selectedElement.type == "button" ? cssProps.color : "only for buttons"} onChange={(event) => onChange("color", event.target.value)} /></Form.Item>)}   
+ {(selectedElement.type == "button") && (<Form.Item label="Text Color"><ColorPicker value={cssProps.color} showText disabled={selectedElement.type !== "button"}  onChange={(color) => onChange("color", color.toHexString())} /></Form.Item>)}   
   
   <Form.Item label="Padding">
     <InputNumber addonAfter={selectUnit} value={cssProps.padding} onChange={(newValue) => onChange("padding", newValue)} />
@@ -90,6 +96,9 @@ return <article>
   <Form.Item label="Margin">
     <InputNumber addonAfter={selectUnit} value={cssProps.margin} onChange={(newValue) => onChange("margin", newValue)} />
   </Form.Item>
+
+
+
 
   <Form.Item label="Position">
   <Select value={cssProps.position} onChange={(value) => onChange("position", value)}>

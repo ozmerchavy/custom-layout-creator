@@ -22,7 +22,7 @@ const exampleRootElement = {
         "margin": "1rem",
         "padding": "1rem",
         "color": "blue",
-        "backgroundColor": "lightgreen",
+        "backgroundColor": "#90ee90",
         "width": "auto",
         "height": "auto",
         "display": "block",

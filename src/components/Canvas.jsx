@@ -5,32 +5,8 @@ import {selectElement} from "../slices/canvasElements"
 import React, { useEffect, useState } from 'react';
 import { store} from "../store.js";
 
-function printbleDebugTree(node, depth = 0) {
-  const indent = "  ".repeat(depth);
-
-  if (typeof node === 'string') {
-    return `${indent}"${node}"\n`
-  }
-
-  const cssProps = Object.entries(node.cssProps)
-    .map(([prop, value]) => `${prop}: ${value}`)
-    .join(", ");
-
-  let result = `${indent}${node.type}#${node.id} { ${cssProps} }\n`;
-
-  if (Array.isArray(node.children)) {
-    for (const child of node.children) {
-      result += printbleDebugTree(child, depth + 1);
-    }
-  } else result += printbleDebugTree(node.children, depth + 1);
-
-  return result;
-}
 
 
-function printJSON(node, depth=0){
-  return <div>{JSON.stringify(node,null,2)}</div>
-}
 
 function elementClicked(elementID){
   store.dispatch(selectElement(elementID));

@@ -15,6 +15,7 @@ export default function ElementPicker() {
     <article className={`${layout.ElementPicker} ${styles.ElementPicker}`}>
       <ElementButton text="Button" icon="button.png" />
       <ElementButton text="Container" icon="container.png" />
+      
     </article>
   );
 }

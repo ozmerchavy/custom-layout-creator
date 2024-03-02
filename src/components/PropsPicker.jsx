@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
 import { Input, Form, InputNumber, Select, ColorPicker  } from 'antd';
 
-
 const selectUnit = (
   <Select
     defaultValue="px"
@@ -51,6 +50,7 @@ export default function PropsPicker() {
 
   if (!selectedElement) {
     return <article>select element...</article>
+  
   }
 
   const cssProps = selectedElement.cssProps
@@ -99,7 +99,6 @@ return <article>
 
 
 
-
   <Form.Item label="Position">
   <Select value={cssProps.position} onChange={(value) => onChange("position", value)}>
     <Select.Option value="absolute">Absolute</Select.Option>
@@ -119,79 +118,11 @@ return <article>
 </Form.Item>
 
 </Form>
+
+
 </article>
 
 }
 
 
 
-
-
-function ToDelete() {
-  const root = useSelector((state) => state.canvasElements.root);
-  const dispatch = useDispatch();
-
-  const allIds = findAllDivsIds(root);
-
-  const [type, setType] = useState("div");
-  const [parentId, setParentId] = useState("root");
-  
-  // relevant if type is "button"
-  const [text, setText] = useState("Click Me!"); 
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    // if it's not a button it's a div hence children is []
-    const children = (type === 'button' ? text.trim() : []);
-    dispatch(addElement({ type, parentId, children }));
-  };
-
-  return (
-    <article className={`${layout.PropsPicker} ${styles.PropsPicker}`}>
-      <p>Create New Element</p>
-      <hr />
-
-      <form onSubmit={onSubmit}>
-        <fieldset>
-          <label>
-            Type
-            <select
-              value={type}
-              onChange={({ target }) => setType(target.value)}
-            >
-              <option value="div">div</option>
-              <option value="button">button</option>
-            </select>
-          </label>
-
-          <label>
-            Parent
-            <select
-              value={parentId}
-              onChange={({ target }) => setParentId(target.value)}
-            >
-              {allIds.map((id) => (
-                <option value={id} key={id}>
-                  #{id}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          {type === "button" && (
-            <label>
-              Text
-              <input
-                type="text"
-                value={text}
-                onChange={({ target }) => setText(target.value)}
-              />
-            </label>
-          )}
-        </fieldset>
-
-        <input type="submit" value="Add New Element" />
-      </form>
-    </article>
-  );
-}

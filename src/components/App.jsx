@@ -3,6 +3,7 @@ import Canvas from "./Canvas";
 import PropsPicker from "./PropsPicker";
 import style from "./App.module.css"
 import layout from "../layout.module.css";
+import ReviewButton from "./ReviewButton";
 
 export default function App() {
 
@@ -11,6 +12,7 @@ export default function App() {
         <ElementPicker/>
         <Canvas/>
         <PropsPicker/>
+        <ReviewButton/>
       </div>
   );
 }

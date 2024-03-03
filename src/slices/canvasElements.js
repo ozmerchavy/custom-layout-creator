@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash';
+import React from 'react';
 
 
 
@@ -81,21 +82,32 @@ const OLD_exampleRootElement = {
   ]
 }
 
+
+
+/** @returns {React.CSSProperties} */
 function initialCssProps() {
-  const color = 'lch(80% 6.5 220.0)' // todo random
+  const r = Math.random() * 155 + 100;
+  const g = Math.random() * 155 + 100;
+  const color = `rgb(${r} ${r} 200)`
   return {
-    padding: '8px',
+    paddingTop: '8px',
+    paddingBottom: '8px',
+    paddingRight: '8px',
+    paddingLeft: '8px',
+    marginTop: '8px',
+    marginBottom: '8px',
+    marginRight: '8px',
+    marginLeft: '8px',
     borderRadius: '5px',
     margin: '8px',
     backgroundColor: color,
-
   }
 }
 
 const exampleRootElement = {
   id: 'root',
   type: 'div',
-  cssProps: initialCssProps(),
+  cssProps: {...initialCssProps(), backgroundColor: 'lch(93 1.54 220.22)' },
   children: [],
 }
 
@@ -183,16 +195,11 @@ export const canvasElements = createSlice({
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
       const parent = findObjectById(state.root, parentId);
-      const newID = makeId()
       updateHistory(state, parent.id, cloneDeep(parent))
       parent.children.push({
         type,
-        id: newID,
-        cssProps: {
-          "margin": "0.5rem",
-          "padding": "0.5rem",
-          "backgroundColor": "lightyellow",
-        },
+        id: makeId(),
+        cssProps: initialCssProps(),
         children: type === "button" ? "clickme!" : [],
       })
     },

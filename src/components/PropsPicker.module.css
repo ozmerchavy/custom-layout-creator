@@ -10,3 +10,7 @@
   margin: 1rem;
 }
 
+.PropsPicker {
+  height: calc(100vh - var(--header-height));
+  overflow-y: scroll;
+}

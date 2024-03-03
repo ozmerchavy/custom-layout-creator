@@ -1,9 +1,11 @@
 .App {
+    --header-height: 80px;
+
     display: grid;
     grid-template-areas:
       "header header"
       "canvas props";
-    grid-template-rows: auto 1fr;
+    grid-template-rows: var(--header-height) 1fr;
     grid-template-columns: 1fr 18rem;
 
     & > * {

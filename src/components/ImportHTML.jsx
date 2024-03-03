@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import layout from "../layout.module.css";
 import { Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import { store } from "../store.js";
+import { startNewHTML } from "../slices/canvasElements";
 
 
 function parseHTML(html) {
@@ -46,26 +48,29 @@ function parseHTML(html) {
 
 export default function ImportHTML() {
   const [fileList, setFileList] = useState([]);
-  const [parseError, setParseError] = useState(false); // State to track parsing errors
+  const [parseError, setParseError] = useState(false); 
   const handleUpload = (file) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const html = event.target.result;
       try {
-        const parsedHTML = parseHTML(html); // Assuming parseHTML is a function that parses HTML
+        const parsedHTML = parseHTML(html); 
         if (typeof parsedHTML === "object") {
-          setParseError(false); 
+          setParseError(false);
+          store.dispatch(startNewHTML(parsedHTML))
+        
+
         } else {
           console.error('Error parsing HTML:', parsedHTML);
-          setParseError(true); // Set parse error state if parsing fails
+          setParseError(true); 
         }
       } catch (error) {
         console.error('Error parsing HTML:', error);
-        setParseError(true); // Set parse error state if parsing fails
+        setParseError(true); 
       }
     };
     reader.readAsText(file);
-    return false; // Prevent default upload behavior
+    return false; 
   };
   
 

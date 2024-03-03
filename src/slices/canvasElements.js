@@ -216,7 +216,6 @@ export const canvasElements = createSlice({
       })
       Object.assign(elementToRevert, previousValue);
 
-     
     },
 
     redo: (state) => {
@@ -234,6 +233,16 @@ export const canvasElements = createSlice({
       Object.assign(elementToRestore, nextValue);
     },
     
+    startNewHTML: (state, {payload})=>{
+      const newRoot = payload
+      const oldRoot = cloneDeep(state.root)
+      state.undoHistory.push({
+        "affectedElementId": "root",
+        "previousValue": cloneDeep(oldRoot)
+      })
+      state.root = newRoot
+
+    },
 
     
     deleteSelectedElement: (state) => {
@@ -248,6 +257,7 @@ export const canvasElements = createSlice({
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-  startDrag, moveDrag, endDrag, undo, redo, isThereUndo, isThereRedo, deleteSelectedElement
+  startDrag, moveDrag, endDrag, undo, redo, isThereUndo, isThereRedo, deleteSelectedElement,
+  startNewHTML
 } = canvasElements.actions
 export default canvasElements.reducer

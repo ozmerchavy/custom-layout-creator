@@ -32,7 +32,7 @@ export default function PropsPicker() {
   const dispatch = useDispatch();
 
   if (!selectedElement) {
-    return <article className={layout.PropsPicker}>select something...</article>;
+    return <article className={`${layout.PropsPicker} ${styles.PropsPicker}`}>Select Something...</article>;
   }
 
   const cssProps = selectedElement.cssProps;
@@ -49,7 +49,7 @@ export default function PropsPicker() {
   };
 
   return (
-    <article className={layout.PropsPicker}>
+    <article className={`${layout.PropsPicker} ${styles.PropsPicker}`}>
       <Form action="none" labelAlign="left" >
         <Collapse ghost>
           <Collapse.Panel header="Position" key="1">

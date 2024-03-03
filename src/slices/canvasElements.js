@@ -234,9 +234,7 @@ export const canvasElements = createSlice({
       Object.assign(elementToRestore, nextValue);
     },
     
-    
-    
-    
+
     
     deleteSelectedElement: (state) => {
       deleteElementById(state, state.idSelected)
@@ -250,6 +248,6 @@ export const canvasElements = createSlice({
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-  startDrag, moveDrag, endDrag, undo, redo, deleteSelectedElement
+  startDrag, moveDrag, endDrag, undo, redo, isThereUndo, isThereRedo, deleteSelectedElement
 } = canvasElements.actions
 export default canvasElements.reducer

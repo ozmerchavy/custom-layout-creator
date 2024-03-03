@@ -204,7 +204,7 @@ export default function PropsPicker() {
         <Divider />
 
         <Collapse ghost>
-          <Collapse.Panel header="Style" key="3">
+          <Collapse.Panel header="Colors" key="4">
             <Form.Item label={<Label text="Color" style={{ minWidth: "10ch" }} />} colon={false}>
               <ColorPicker
                 value={cssProps.backgroundColor}

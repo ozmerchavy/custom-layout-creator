@@ -15,7 +15,6 @@ export default function App() {
         <Canvas/>
         <PropsPicker/>
         <ReviewButton/>
-        <History/>
       </div>
   );
 }

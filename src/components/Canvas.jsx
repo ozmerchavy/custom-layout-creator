@@ -31,11 +31,6 @@ function renderElement(node, idSelected, isDrag) {
     event.stopPropagation();
     elementClicked(node.id)
   }
-  props.onMouseEnter = (event) => {
-    if (isDrag) {
-      console.log(node.id, "drag");
-    }
-  }
   return React.createElement(node.type, props, ...children)
 }
 

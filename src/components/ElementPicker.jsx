@@ -22,6 +22,8 @@ function initDrag(event, type, setPos) {
     store.dispatch(endDrag());
     document.removeEventListener("mousemove", onMouseMove);
     document.removeEventListener("mouseup", quitDrags);
+    console.log(coords)
+
   };
 
   document.addEventListener("mousemove", onMouseMove);

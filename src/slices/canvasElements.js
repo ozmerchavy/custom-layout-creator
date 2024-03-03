@@ -203,7 +203,6 @@ export const canvasElements = createSlice({
       const selectedElement = findObjectById(state.root, state.idSelected);
       selectedElement.children = newText
     }
-
     
   },
 })

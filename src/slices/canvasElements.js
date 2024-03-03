@@ -178,14 +178,16 @@ export const canvasElements = createSlice({
       state.drag.coords = coords;
     },
     endDrag: (state, { payload }) => {
-      const  type = payload;
-      const parent = findObjectById(state.idHovered);
-      parent.children.push({
-        type,
-        id: makeId(),
-        cssProps: {},
-        children: type === "button" ? "div" : [],
-      })
+      // const  type = payload;
+      // const parent = findObjectById(state.idHovered);
+      // parent.children.push({
+      //   type,
+      //   id: makeId(),
+      //   cssProps: {},
+      //   children: type === "button" ? "div" : [],
+      // })
+
+      state.drag = null;
       
     },
     addElement: (state, { payload }) => {
@@ -195,7 +197,7 @@ export const canvasElements = createSlice({
         type,
         id: makeId(),
         cssProps: {},
-        children: type === "button" ? "div" : [],
+        children: type === "button" ? "text" : [],
       })
     },
     selectElement : (state, {payload} ) =>{
@@ -203,8 +205,8 @@ export const canvasElements = createSlice({
       state.idSelected = elementId
     },
     hoverElement : (state, {payload} ) =>{
-      const elementId = payload;
-      state.idHovered = elementId
+      // const elementId = payload;
+      // state.idHovered = elementId
     },
     modifySelectedElement: (state, {payload})=>{
       const cssProps = payload;

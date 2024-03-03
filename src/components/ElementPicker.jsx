@@ -21,7 +21,7 @@ function initDrag(event, type, setPos) {
 
   const quitDrags = () => {
 
-    store.dispatch(endDrag("button"));
+    store.dispatch(endDrag());
     document.removeEventListener("mousedown", onMouseMove);
     document.removeEventListener("click", quitDrags);
     // console.log("last hovered:", idHovered)

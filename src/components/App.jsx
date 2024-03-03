@@ -5,6 +5,7 @@ import style from "./App.module.css"
 import layout from "../layout.module.css";
 import ReviewButton from "./ReviewButton";
 import ImportHTML from "./ImportHTML";
+import { DragThingy } from "./ElementPicker";
 
 export default function App() {
 
@@ -15,6 +16,7 @@ export default function App() {
         <Canvas/>
         <PropsPicker/>
         <ReviewButton/>
+        <DragThingy />
       </div>
   );
 }

@@ -165,8 +165,20 @@ export const canvasElements = createSlice({
   initialState: {
     root: exampleRootElement,
     idSelected: undefined,
+    drag: null,
   },
   reducers: {
+    startDrag: (state, { payload }) => {
+      const { type, coords } = payload;
+      console.log(type, coords);
+    },
+    moveDrag: (state, { payload }) => {
+      const coords = payload;
+      state.drag.coords = coords;
+    },
+    endDrag: (state) => {
+      state.drag = null;
+    },
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
       const parent = findObjectById(state.root, parentId);
@@ -196,5 +208,8 @@ export const canvasElements = createSlice({
   },
 })
 
-export const { addElement, selectElement, modifySelectedElement, modifyButtonText } = canvasElements.actions
+export const { 
+  addElement, selectElement, modifySelectedElement, modifyButtonText,
+  startDrag, moveDrag, endDrag
+} = canvasElements.actions
 export default canvasElements.reducer

@@ -202,21 +202,42 @@ export const canvasElements = createSlice({
       selectedElement.children = newText
     },
     undo: (state) => {
-
+      
       const lastChange = state.undoHistory.pop();
       if (!lastChange) return;
       const { affectedElementId, previousValue } = lastChange;
-
+     
       const elementToRevert = findObjectById(state.root, affectedElementId);
       if (!elementToRevert) return;
       // Directly revert the element's state to its previous value
-      Object.assign(elementToRevert, previousValue);
-
       state.redoHistory.push({
         "affectedElementId": affectedElementId,
         "nextValue": cloneDeep(elementToRevert)
       })
+      Object.assign(elementToRevert, previousValue);
+
+     
     },
+
+    redo: (state) => {
+      const lastRedo = state.redoHistory.pop();
+      if (!lastRedo) return;
+      const { affectedElementId, nextValue } = lastRedo;
+    
+      const elementToRestore = findObjectById(state.root, affectedElementId);
+      if (!elementToRestore) return;
+      
+      state.undoHistory.push({
+        "affectedElementId": affectedElementId,
+        "previousValue": cloneDeep(elementToRestore)
+      })
+      Object.assign(elementToRestore, nextValue);
+    },
+    
+    
+    
+    
+    
     deleteSelectedElement: (state) => {
       deleteElementById(state, state.idSelected)
     },
@@ -229,6 +250,6 @@ export const canvasElements = createSlice({
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-  startDrag, moveDrag, endDrag, undo, deleteSelectedElement
+  startDrag, moveDrag, endDrag, undo, redo, deleteSelectedElement
 } = canvasElements.actions
 export default canvasElements.reducer

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import {cloneDeep} from 'lodash';
 
 
 
@@ -81,6 +82,13 @@ const exampleRootElement = {
 }
 
 
+
+function updateHistory(state, affectedElementId, previousValue ){
+    // if an element was added, previous value should be undefined.
+  state.undoHistory.push({ affectedElementId, previousValue })
+}
+
+
 export function findObjectById(state, id) {
   if (state.id === id) {
     return state;
@@ -105,6 +113,7 @@ export const canvasElements = createSlice({
   name: 'canvasElements',
   initialState: {
     root: exampleRootElement,
+    undoHistory: [],
     idSelected: 'root',
     idHovered: undefined,
     drag: null,
@@ -125,9 +134,10 @@ export const canvasElements = createSlice({
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
       const parent = findObjectById(state.root, parentId);
+      const newID = makeId()
       parent.children.push({
         type,
-        id: makeId(),
+        id: newID,
         cssProps: {
           "margin": "0.5rem",
           "padding": "0.5rem",
@@ -135,6 +145,7 @@ export const canvasElements = createSlice({
         },
         children: type === "button" ? "clickme!" : [],
       })
+      updateHistory(state, newID, undefined)
     },
     selectElement: (state, { payload }) => {
       const elementId = payload;
@@ -147,15 +158,28 @@ export const canvasElements = createSlice({
     modifySelectedElement: (state, { payload }) => {
       const cssProps = payload;
       const selectedElement = findObjectById(state.root, state.idSelected);
+    
+      updateHistory(state, state.idSelected, cloneDeep(selectedElement))
       selectedElement.cssProps = { ...selectedElement.cssProps, ...cssProps };
     },
     modifyButtonText: (state, { payload }) => {
       const newText = payload
       const selectedElement = findObjectById(state.root, state.idSelected);
+      updateHistory(state, state.idSelected, cloneDeep(selectedElement))
       selectedElement.children = newText
     },
-    updateRoot: (state, { payload }) => {
-      state.root = payload
+    undo: (state) => {
+      const lastChange = state.undoHistory.pop();
+      if (!lastChange) return;
+      const { affectedElementId, previousValue } = lastChange;
+      if (!previousValue){
+        //element was created... 
+        return console.log("gonna delete element!", affectedElementId)
+      }
+      const elementToRevert = findObjectById(state.root, affectedElementId);
+      if (!elementToRevert) return;
+      // Directly revert the element's state to its previous value
+      Object.assign(elementToRevert, previousValue);
     }
 
   },
@@ -163,6 +187,6 @@ export const canvasElements = createSlice({
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-  startDrag, moveDrag, endDrag, updateRoot
+  startDrag, moveDrag, endDrag, undo
 } = canvasElements.actions
 export default canvasElements.reducer

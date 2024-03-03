@@ -47,7 +47,6 @@ export default function PropsPicker() {
       <Form action="none" labelAlign="left">
         <Collapse ghost>
           <Collapse.Panel header="CSS Properties" key="1">
-            <Form labelAlign="left">
               <Form.Item label={<Label text="Position" style={{ minWidth: "10ch" }} />} colon={false}>
                 <Select
                   variant="borderless"
@@ -69,7 +68,6 @@ export default function PropsPicker() {
                   <Select.Option value="flex">Flex</Select.Option>
                 </Select>
               </Form.Item>
-            </Form>
           </Collapse.Panel>
         </Collapse>
 
@@ -225,9 +223,8 @@ export default function PropsPicker() {
         )}
 
         {selectedElement.type == "div" && (
-          <Flex gap="small" wrap="wrap">
+          <Flex gap="small" wrap="wrap"> 
             <Button
-              type="primary"
               size="medium"
               onClick={() => {
                 dispatch(addElement({ parentId: idSelected, type: "div" }));
@@ -236,7 +233,6 @@ export default function PropsPicker() {
               Add a Div
             </Button>
             <Button
-              type="primary"
               size="medium"
               onClick={() => {
                 dispatch(addElement({ parentId: idSelected, type: "button" }));

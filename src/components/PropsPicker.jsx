@@ -52,7 +52,7 @@ export default function PropsPicker() {
     <article className={layout.PropsPicker}>
       <Form action="none" labelAlign="left">
         <Collapse ghost>
-          <Collapse.Panel header="CSS Properties" key="1">
+          <Collapse.Panel header="Position" key="1">
             <Form.Item label={<Label text="Position" style={{ minWidth: "10ch" }} />} colon={false}>
               <Select variant="borderless" value={cssProps.position} onChange={(value) => onChange("position", value)}>
                 <Select.Option value="absolute">Absolute</Select.Option>
@@ -201,32 +201,39 @@ export default function PropsPicker() {
             </Form.Item>
           </Collapse.Panel>
         </Collapse>
-
         <Divider />
+
+        <Collapse ghost>
+          <Collapse.Panel header="Style" key="3">
+            <Form.Item label={<Label text="Color" style={{ minWidth: "10ch" }} />} colon={false}>
+              <ColorPicker
+                value={cssProps.backgroundColor}
+                showText
+                onChange={(color) => onChange("backgroundColor", color.toHexString())}
+                placement="topLeft"
+              />
+            </Form.Item>
+
+            {selectedElement.type == "button" && (
+              <Form.Item label={<Label text="Text Color" style={{ minWidth: "10ch" }} />} colon={false}>
+                <ColorPicker
+                  value={cssProps.color}
+                  showText
+                  onChange={(color) => onChange("color", color.toHexString())}
+                />
+              </Form.Item>
+            )}
+          </Collapse.Panel>
+        </Collapse>
+        <Divider />
+
         {selectedElement.type == "button" && (
           <Form.Item label={<Label text="Button Text" style={{ minWidth: "10ch" }} />} colon={false}>
             <Input type="text" value={selectedElement.children} onChange={(event) => modifyText(event.target.value)} />
           </Form.Item>
         )}
-
-        <Form.Item label={<Label text="Color" style={{ minWidth: "10ch" }} />} colon={false}>
-          <ColorPicker
-            value={cssProps.backgroundColor}
-            showText
-            onChange={(color) => onChange("backgroundColor", color.toHexString())}
-            placement="topLeft"
-          />
-        </Form.Item>
-
-  
-        {selectedElement.type == "button" && (
-          <Form.Item label={<Label text="Text Color" style={{ minWidth: "10ch" }} />} colon={false}>
-            <ColorPicker value={cssProps.color} showText onChange={(color) => onChange("color", color.toHexString())} />
-          </Form.Item>
-        )}
-
         {selectedElement.type == "div" && (
-          <Form.Item style={{display: 'flex', justifyContent: 'center'}}>
+          <Form.Item style={{ display: "flex", justifyContent: "center" }}>
             <Flex gap="small" wrap="wrap">
               <Button
                 size="medium"
@@ -249,7 +256,7 @@ export default function PropsPicker() {
         )}
 
         <Divider />
-        <Form.Item style={{display: 'flex', justifyContent: 'center'}}>
+        <Form.Item style={{ display: "flex", justifyContent: "center" }}>
           <Button
             danger
             onClick={() => {

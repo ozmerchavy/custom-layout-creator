@@ -196,8 +196,12 @@ export const canvasElements = createSlice({
       parent.children.push({
         type,
         id: makeId(),
-        cssProps: {},
-        children: type === "button" ? "text" : [],
+        cssProps:  {
+          "margin": "0.5rem",
+          "padding": "0.5rem",
+          "backgroundColor": "lightyellow",
+        },
+        children: type === "button" ? "clickme!" : [],
       })
     },
     selectElement : (state, {payload} ) =>{

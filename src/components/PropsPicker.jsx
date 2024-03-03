@@ -3,7 +3,7 @@ import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from 'react-redux'
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
-import { Input, Form, InputNumber, Select, ColorPicker  } from 'antd';
+import { Input, Form, InputNumber, Select, ColorPicker , Button, Flex } from 'antd';
 
 const selectUnit = (
   <Select
@@ -116,6 +116,24 @@ return <article className={layout.PropsPicker}>
     <Select.Option value="flex">Flex</Select.Option>
   </Select>
 </Form.Item>
+
+{
+  (selectedElement.type == "div") && 
+  <Flex gap="small" wrap="wrap">
+  <Button type="primary"size="medium" onClick={()=>{
+    dispatch(addElement({parentId: idSelected, type: "div"}))
+    }}>
+    Add a Div
+  </Button>
+  <Button type="primary"size="medium" onClick={()=>{
+    dispatch(addElement({parentId: idSelected, type: "button"}))
+  }}>
+    Add a Button 
+  </Button>
+  
+</Flex>
+}
+
 
 </Form>
 

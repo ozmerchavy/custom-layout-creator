@@ -39,15 +39,14 @@ export default function PropsPicker() {
   };
 
   const Label = ({ text, style }) => {
-    return <label style={{ color: "#aaa", ...style }}>{text}</label>;
+    return <label style={{ color: "#aaa", fontSize: "0.8rem", ...style }}>{text}</label>;
   };
 
   return (
     <article className={layout.PropsPicker}>
-      <Form action="none">
-
-      <Form.Item label="Position">
-          <Select value={cssProps.position} onChange={(value) => onChange("position", value)}>
+      <Form action="none" labelAlign="left" >
+        <Form.Item  label={<Label text="Position" style={{minWidth:"10ch"}}/>} colon={false} >
+          <Select variant="borderless" value={cssProps.position} onChange={(value) => onChange("position", value)}>
             <Select.Option value="absolute">Absolute</Select.Option>
             <Select.Option value="relative">Relative</Select.Option>
             <Select.Option value="fixed">Fixed</Select.Option>
@@ -55,8 +54,8 @@ export default function PropsPicker() {
           </Select>
         </Form.Item>
 
-        <Form.Item label="Display">
-          <Select value={cssProps.display} onChange={(value) => onChange("display", value)}>
+        <Form.Item label={<Label text="Display" style={{minWidth:"10ch"}} />} colon={false}>
+          <Select variant="borderless" value={cssProps.display} onChange={(value) => onChange("display", value)}>
             <Select.Option value="block">Block</Select.Option>
             <Select.Option value="inline">Inline</Select.Option>
             <Select.Option value="inline-block">Inline Block</Select.Option>
@@ -64,7 +63,7 @@ export default function PropsPicker() {
           </Select>
         </Form.Item>
 
-        <Divider/>
+        <Divider />
         <Flex gap={10}>
           <Form.Item label={<Label text="W" />} colon={false}>
             <InputNumber
@@ -85,79 +84,102 @@ export default function PropsPicker() {
         </Flex>
 
         <Form.Item>
-          <div style={{marginLeft: '6em'}}> 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <InputNumber
-              placeholder="top"
-              value={cssProps.paddingTop}
-              onChange={(newValue) => onChange("paddingTop", newValue)}
-              style={{ marginBottom: "2px", width: "8ch" }}
-            />
+          <div style={{ marginLeft: "6em" }}>
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
-                gap: "1.5px",
+                flexDirection: "column",
+                alignItems: "center",
               }}
             >
-              <Label text="Padding" style={{position: 'absolute', left: 0, paddingBlock: 4 }} />
               <InputNumber
-                placeholder="left"
-                style={{ width: "8ch" }}
-                value={cssProps.paddingLeft}
-                onChange={(newValue) => onChange("paddingLeft", newValue)}
+                placeholder="top"
+                value={cssProps.paddingTop}
+                onChange={(newValue) => onChange("paddingTop", newValue)}
+                style={{ marginBottom: "2px", width: "8ch" }}
               />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1.5px",
+                }}
+              >
+                <Label text="Padding" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
+                <InputNumber
+                  placeholder="left"
+                  style={{ width: "8ch" }}
+                  value={cssProps.paddingLeft}
+                  onChange={(newValue) => onChange("paddingLeft", newValue)}
+                />
 
+                <InputNumber
+                  placeholder="px"
+                  style={{ width: "8ch" }}
+                  value={cssProps.paddingRight}
+                  onChange={(newValue) => onChange("paddingRight", newValue)}
+                />
+              </div>
               <InputNumber
-                placeholder="px"
-                style={{ width: "8ch" }}
-                value={cssProps.paddingRight}
-                onChange={(newValue) => onChange("paddingRight", newValue)}
+                placeholder="bottom"
+                value={cssProps.paddingBottom}
+                onChange={(newValue) => onChange("paddingBottom", newValue)}
+                style={{ marginTop: "2px", width: "8ch" }}
               />
             </div>
-            <InputNumber
-              placeholder="bottom"
-              value={cssProps.paddingBottom}
-              onChange={(newValue) => onChange("paddingBottom", newValue)}
-              style={{ marginTop: "2px", width: "8ch" }}
-            />
           </div>
-
-          </div>
-   
         </Form.Item>
 
-        <Flex gap={10}>
-          <Form.Item label={<Label text="Margin Top" />} colon={false}>
-            <InputNumber
-              value={cssProps.marginTop}
-              onChange={(newValue) => onChange("marginTop", newValue)}
-              className={styles.InputNumber}
-              variant="borderless"
-            />
-          </Form.Item>
+        <Form.Item>
+          <div style={{ marginLeft: "6em" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <InputNumber
+                placeholder="top"
+                value={cssProps.marginTop}
+                onChange={(newValue) => onChange("marginTop", newValue)}
+                style={{ marginBottom: "2px", width: "8ch" }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "1.5px",
+                }}
+              >
+                <Label text="Margin" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
+                <InputNumber
+                  placeholder="left"
+                  style={{ width: "8ch" }}
+                  value={cssProps.marginLeft}
+                  onChange={(newValue) => onChange("marginLeft", newValue)}
+                />
 
-          <Form.Item label={<Label text="Margin Bottom" />} colon={false}>
-            <InputNumber
-              value={cssProps.marginBottom}
-              onChange={(newValue) => onChange("height", newValue)}
-              variant="borderless"
-            />
-          </Form.Item>
-        </Flex>
-
-
-       
+                <InputNumber
+                  placeholder="px"
+                  style={{ width: "8ch" }}
+                  value={cssProps.marginRight}
+                  onChange={(newValue) => onChange("marginRight", newValue)}
+                />
+              </div>
+              <InputNumber
+                placeholder="bottom"
+                value={cssProps.marginBottom}
+                onChange={(newValue) => onChange("marginBottom", newValue)}
+                style={{ marginTop: "2px", width: "8ch" }}
+              />
+            </div>
+          </div>
+        </Form.Item>
 
         <Divider />
 
-        <Form.Item label={<Label text="Color" />} colon={false}>
+        <Form.Item label={<Label text="Color"  style={{minWidth:"10ch"}} />} colon={false}>
           <ColorPicker
             value={cssProps.backgroundColor}
             showText
@@ -167,33 +189,25 @@ export default function PropsPicker() {
         </Form.Item>
 
         {selectedElement.type == "button" && (
-          <Form.Item label="Button Text">
+          <Form.Item label={<Label text="Button Text"  style={{minWidth:"10ch"}} />} colon={false}>
             <Input
               type="text"
-              disabled={selectedElement.type !== "button"}
-              value={selectedElement.type == "button" ? selectedElement.children : "only for buttons"}
+              value={selectedElement.children}
               onChange={(event) => modifyText(event.target.value)}
             />
           </Form.Item>
         )}
         {selectedElement.type == "button" && (
-          <Form.Item label="Text Color">
+          <Form.Item label={<Label text="Text Color"  style={{minWidth:"10ch"}} />} colon={false}>
             <ColorPicker
               value={cssProps.color}
               showText
-              disabled={selectedElement.type !== "button"}
               onChange={(color) => onChange("color", color.toHexString())}
             />
           </Form.Item>
         )}
 
-        
-
-
-
         <Divider />
-
-      
 
         {selectedElement.type == "div" && (
           <Flex gap="small" wrap="wrap">

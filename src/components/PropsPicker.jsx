@@ -3,7 +3,7 @@ import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
-import { Collapse, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
+import { Layout, Collapse, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
 
 function findAllDivsIds(node) {
   const ids = [];
@@ -204,8 +204,8 @@ export default function PropsPicker() {
 
         <Divider />
 
-        <Form.Item label={<Label text="Color" style={{ minWidth: "10ch" }} />} colon={false}>
-          <ColorPicker
+        <Form.Item label={<Label text="Color" style={{ minWidth: "10ch"}} />} colon={false}>
+          <ColorPicker 
             value={cssProps.backgroundColor}
             showText
             onChange={(color) => onChange("backgroundColor", color.toHexString())}
@@ -248,5 +248,7 @@ export default function PropsPicker() {
         )}
       </Form>
     </article>
+   
+
   );
 }

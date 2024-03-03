@@ -3,8 +3,7 @@
 
 
 TO RESOLVE:
-- make unit selector work
-- position makes serious issues....
 - setPos is broken.
-- impor
--no auto  in px
+- import html
+- no auto  in px (its ugly)
+- scroll issue

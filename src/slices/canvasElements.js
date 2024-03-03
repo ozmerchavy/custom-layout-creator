@@ -12,7 +12,7 @@ const exampleRootElement = {
     "height": "auto",
     "display": "block",
     "color": "#000000",
-    "backgroundColor": "transparent"
+    "backgroundColor": "#edf5ff"
   },
   "children": [
     {
@@ -72,7 +72,7 @@ const exampleRootElement = {
               },
               "children": "Button 2"
             }
-       
+
           ]
         }
       ]
@@ -105,7 +105,7 @@ export const canvasElements = createSlice({
   name: 'canvasElements',
   initialState: {
     root: exampleRootElement,
-    idSelected: undefined,
+    idSelected: 'root',
     idHovered: undefined,
     drag: null,
   },
@@ -120,7 +120,7 @@ export const canvasElements = createSlice({
     },
     endDrag: (state, { payload }) => {
       state.drag = null;
-      
+
     },
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
@@ -128,7 +128,7 @@ export const canvasElements = createSlice({
       parent.children.push({
         type,
         id: makeId(),
-        cssProps:  {
+        cssProps: {
           "margin": "0.5rem",
           "padding": "0.5rem",
           "backgroundColor": "lightyellow",
@@ -136,33 +136,33 @@ export const canvasElements = createSlice({
         children: type === "button" ? "clickme!" : [],
       })
     },
-    selectElement : (state, {payload} ) =>{
+    selectElement: (state, { payload }) => {
       const elementId = payload;
       state.idSelected = elementId
     },
-    hoverElement : (state, {payload} ) =>{
+    hoverElement: (state, { payload }) => {
       // const elementId = payload;
       // state.idHovered = elementId
     },
-    modifySelectedElement: (state, {payload})=>{
+    modifySelectedElement: (state, { payload }) => {
       const cssProps = payload;
       const selectedElement = findObjectById(state.root, state.idSelected);
       selectedElement.cssProps = { ...selectedElement.cssProps, ...cssProps };
     },
-    modifyButtonText: (state, {payload})=>{
+    modifyButtonText: (state, { payload }) => {
       const newText = payload
       const selectedElement = findObjectById(state.root, state.idSelected);
       selectedElement.children = newText
     },
-    updateRoot: (state, {payload}) =>{
+    updateRoot: (state, { payload }) => {
       state.root = payload
     }
-    
+
   },
 })
 
-export const { 
-  addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText, 
+export const {
+  addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
   startDrag, moveDrag, endDrag, updateRoot
 } = canvasElements.actions
 export default canvasElements.reducer

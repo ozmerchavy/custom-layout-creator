@@ -1,39 +1,44 @@
 .App {
     display: grid;
     grid-template-areas:
-      "header import"
-      "canvas sider"
-      "canvas review";
-    grid-template-columns: 1fr 18rem;
+      "header props"
+      "canvas props";
     grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr 18rem;
 
     & > * {
         margin: 0;
     }
-    gap: 0.5rem;
 
     margin: 0;
-    padding: 1rem;
+    padding: 0rem;
     min-height: 100vh;
 }
 
 .Canvas {
     grid-area: canvas;
-}
-
-.ElementPicker {
-    grid-area: header;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
 }
 
 .PropsPicker {
-    grid-area: sider;
+    grid-area: props;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
+    z-index: 1;
+    padding: 1.5rem;
 }
 
-.ImportHTML{
-    grid-area: import;
+.Header {
+    grid-area: header;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
+    z-index: 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 1.5rem;
+    padding-inline: 1.5rem;
 }
 
-.Review {
-    grid-area: review;
-}
-
+/* export import elements */

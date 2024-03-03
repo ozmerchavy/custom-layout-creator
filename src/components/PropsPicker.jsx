@@ -49,14 +49,13 @@ export default function PropsPicker() {
   const dispatch = useDispatch()
 
   if (!selectedElement) {
-    return <article>select element...</article>
+    return <article>select  something...</article>
   
   }
 
   const cssProps = selectedElement.cssProps
 
   const onChange = (prop, newValue) => {
-    console.log("changing", prop, "to be", newValue)
     dispatch(modifySelectedElement({[prop]: newValue}))
 
   }

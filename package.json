@@ -16,6 +16,7 @@
     "antd": "^5.14.2",
     "file-saver": "^2.0.5",
     "ionicons": "^7.2.2",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-code-blocks": "^0.1.6",
     "react-dom": "^18.2.0",

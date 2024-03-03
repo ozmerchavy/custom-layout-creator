@@ -53,8 +53,9 @@ export default function ElementPicker() {
   const ref = useRef(null);
 
   const setPos = (x, y) => {
-    ref.current.style.left = x - 10+ 'px'
-    ref.current.style.top = y - 10 + 'px'
+    return 1
+      ref.current.style.left = x - 10 + 'px'
+      ref.current.style.top = y - 10 + 'px'
   }
 
   return (

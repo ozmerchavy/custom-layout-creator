@@ -5,7 +5,7 @@ import style from "./App.module.css"
 import layout from "../layout.module.css";
 import ReviewButton from "./ReviewButton";
 import ImportHTML from "./ImportHTML";
-
+import History from "./History";
 export default function App() {
 
   return (
@@ -15,6 +15,7 @@ export default function App() {
         <Canvas/>
         <PropsPicker/>
         <ReviewButton/>
+        <History/>
       </div>
   );
 }

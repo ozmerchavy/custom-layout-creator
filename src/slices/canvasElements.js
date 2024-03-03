@@ -71,67 +71,8 @@ const exampleRootElement = {
                 "position": "static"
               },
               "children": "Button 2"
-            },
-            {
-              "id": "div3",
-              "type": "div",
-              "cssProps": {
-                "margin": "1rem",
-                "padding": "1rem",
-                "backgroundColor": "lightgrey",
-                "width": "auto",
-                "height": "auto",
-                "display": "block",
-                "position": "static"
-              },
-              "children": [
-                {
-                  "id": "button3",
-                  "type": "button",
-                  "cssProps": {
-                    "margin": "0.5rem",
-                    "padding": "0.5rem",
-                    "color": "black",
-                    "backgroundColor": "orange",
-                    "width": "auto",
-                    "height": "auto",
-                    "display": "block",
-                    "position": "static"
-                  },
-                  "children": "Button 3"
-                },
-                {
-                  "id": "div4",
-                  "type": "div",
-                  "cssProps": {
-                    "margin": "1rem",
-                    "padding": "1rem",
-                    "backgroundColor": "lightyellow",
-                    "width": "auto",
-                    "height": "auto",
-                    "display": "block",
-                    "position": "static"
-                  },
-                  "children": [
-                    {
-                      "id": "button4",
-                      "type": "button",
-                      "cssProps": {
-                        "margin": "0.5rem",
-                        "padding": "0.5rem",
-                        "color": "black",
-                        "backgroundColor": "yellow",
-                        "width": "auto",
-                        "height": "auto",
-                        "display": "block",
-                        "position": "static"
-                      },
-                      "children": "Button 4"
-                    }
-                  ]
-                }
-              ]
             }
+       
           ]
         }
       ]
@@ -178,15 +119,6 @@ export const canvasElements = createSlice({
       state.drag.coords = coords;
     },
     endDrag: (state, { payload }) => {
-      // const  type = payload;
-      // const parent = findObjectById(state.idHovered);
-      // parent.children.push({
-      //   type,
-      //   id: makeId(),
-      //   cssProps: {},
-      //   children: type === "button" ? "div" : [],
-      // })
-
       state.drag = null;
       
     },
@@ -222,13 +154,15 @@ export const canvasElements = createSlice({
       const selectedElement = findObjectById(state.root, state.idSelected);
       selectedElement.children = newText
     },
-
+    updateRoot: (state, {payload}) =>{
+      state.root = payload
+    }
     
   },
 })
 
 export const { 
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText, 
-  startDrag, moveDrag, endDrag
+  startDrag, moveDrag, endDrag, updateRoot
 } = canvasElements.actions
 export default canvasElements.reducer

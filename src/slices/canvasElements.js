@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {cloneDeep} from 'lodash';
+import { cloneDeep } from 'lodash';
 
 
 
@@ -83,9 +83,11 @@ const exampleRootElement = {
 
 
 
-function updateHistory(state, affectedElementId, previousValue ){
-    // if an element was added, previous value should be undefined.
+function updateHistory(state, affectedElementId, previousValue) {
+  // if an element was added, previous value should be undefined.
   state.undoHistory.push({ affectedElementId, previousValue })
+  /// gotta delete redos on any change!
+  state.redoHistory = []
 }
 
 
@@ -166,6 +168,7 @@ export const canvasElements = createSlice({
       const { parentId, type, } = payload;
       const parent = findObjectById(state.root, parentId);
       const newID = makeId()
+      updateHistory(state, parent.id, cloneDeep(parent))
       parent.children.push({
         type,
         id: newID,
@@ -176,7 +179,6 @@ export const canvasElements = createSlice({
         },
         children: type === "button" ? "clickme!" : [],
       })
-      updateHistory(state, newID, undefined)
     },
     selectElement: (state, { payload }) => {
       const elementId = payload;
@@ -189,7 +191,7 @@ export const canvasElements = createSlice({
     modifySelectedElement: (state, { payload }) => {
       const cssProps = payload;
       const selectedElement = findObjectById(state.root, state.idSelected);
-    
+
       updateHistory(state, state.idSelected, cloneDeep(selectedElement))
       selectedElement.cssProps = { ...selectedElement.cssProps, ...cssProps };
     },
@@ -200,23 +202,26 @@ export const canvasElements = createSlice({
       selectedElement.children = newText
     },
     undo: (state) => {
-      
+
       const lastChange = state.undoHistory.pop();
       if (!lastChange) return;
-    
       const { affectedElementId, previousValue } = lastChange;
-      if (!previousValue){
-      }
-    
+
       const elementToRevert = findObjectById(state.root, affectedElementId);
       if (!elementToRevert) return;
       // Directly revert the element's state to its previous value
       Object.assign(elementToRevert, previousValue);
+
+      state.redoHistory.push({
+        "affectedElementId": affectedElementId,
+        "nextValue": cloneDeep(elementToRevert)
+      })
     },
-    deleteSelectedElement: (state)=>{
+    deleteSelectedElement: (state) => {
       deleteElementById(state, state.idSelected)
-    }
-    
+    },
+
+
 
 
   },

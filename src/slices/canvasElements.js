@@ -89,6 +89,30 @@ function updateHistory(state, affectedElementId, previousValue ){
 }
 
 
+const deleteElementById = (state, id) => {
+  const parent = findParentByID(state.root, id);
+  if (parent) {
+    const clonedParent = cloneDeep(parent);
+    updateHistory(state, clonedParent.id, clonedParent);
+    const index = parent.children.findIndex(child => child.id === id);
+    if (index !== -1) {
+      parent.children.splice(index, 1);
+    }
+  }
+};
+
+function findParentByID(element, id) {
+  if (typeof element.children === 'string') return null;
+  for (const child of element.children || []) {
+    if (child.id === id) return element;
+    const found = findParentByID(child, id);
+    if (found) return found;
+  }
+  return null;
+}
+
+
+
 export function findObjectById(state, id) {
   if (state.id === id) {
     return state;
@@ -104,6 +128,12 @@ export function findObjectById(state, id) {
   return null;
 }
 
+
+
+
+
+
+
 const makeId = (() => {
   let id = 0;
   return () => String(id++);
@@ -114,6 +144,7 @@ export const canvasElements = createSlice({
   initialState: {
     root: exampleRootElement,
     undoHistory: [],
+    redoHistory: [],
     idSelected: 'root',
     idHovered: undefined,
     drag: null,
@@ -169,24 +200,30 @@ export const canvasElements = createSlice({
       selectedElement.children = newText
     },
     undo: (state) => {
+      
       const lastChange = state.undoHistory.pop();
       if (!lastChange) return;
+    
       const { affectedElementId, previousValue } = lastChange;
       if (!previousValue){
-        //element was created... 
-        return console.log("gonna delete element!", affectedElementId)
       }
+    
       const elementToRevert = findObjectById(state.root, affectedElementId);
       if (!elementToRevert) return;
       // Directly revert the element's state to its previous value
       Object.assign(elementToRevert, previousValue);
+    },
+    deleteSelectedElement: (state)=>{
+      deleteElementById(state, state.idSelected)
     }
+    
+
 
   },
 })
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-  startDrag, moveDrag, endDrag, undo
+  startDrag, moveDrag, endDrag, undo, deleteSelectedElement
 } = canvasElements.actions
 export default canvasElements.reducer

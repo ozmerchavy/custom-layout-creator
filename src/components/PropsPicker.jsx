@@ -2,7 +2,13 @@ import { useRef, useState } from "react";
 import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
+import {
+  addElement,
+  findObjectById,
+  modifySelectedElement,
+  modifyButtonText,
+  deleteSelectedElement,
+} from "../slices/canvasElements";
 import { Layout, Collapse, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
 
 function findAllDivsIds(node) {
@@ -47,27 +53,23 @@ export default function PropsPicker() {
       <Form action="none" labelAlign="left">
         <Collapse ghost>
           <Collapse.Panel header="CSS Properties" key="1">
-              <Form.Item label={<Label text="Position" style={{ minWidth: "10ch" }} />} colon={false}>
-                <Select
-                  variant="borderless"
-                  value={cssProps.position}
-                  onChange={(value) => onChange("position", value)}
-                >
-                  <Select.Option value="absolute">Absolute</Select.Option>
-                  <Select.Option value="relative">Relative</Select.Option>
-                  <Select.Option value="fixed">Fixed</Select.Option>
-                  <Select.Option value="static">Static</Select.Option>
-                </Select>
-              </Form.Item>
+            <Form.Item label={<Label text="Position" style={{ minWidth: "10ch" }} />} colon={false}>
+              <Select variant="borderless" value={cssProps.position} onChange={(value) => onChange("position", value)}>
+                <Select.Option value="absolute">Absolute</Select.Option>
+                <Select.Option value="relative">Relative</Select.Option>
+                <Select.Option value="fixed">Fixed</Select.Option>
+                <Select.Option value="static">Static</Select.Option>
+              </Select>
+            </Form.Item>
 
-              <Form.Item label={<Label text="Display" style={{ minWidth: "10ch" }} />} colon={false}>
-                <Select variant="borderless" value={cssProps.display} onChange={(value) => onChange("display", value)}>
-                  <Select.Option value="block">Block</Select.Option>
-                  <Select.Option value="inline">Inline</Select.Option>
-                  <Select.Option value="inline-block">Inline Block</Select.Option>
-                  <Select.Option value="flex">Flex</Select.Option>
-                </Select>
-              </Form.Item>
+            <Form.Item label={<Label text="Display" style={{ minWidth: "10ch" }} />} colon={false}>
+              <Select variant="borderless" value={cssProps.display} onChange={(value) => onChange("display", value)}>
+                <Select.Option value="block">Block</Select.Option>
+                <Select.Option value="inline">Inline</Select.Option>
+                <Select.Option value="inline-block">Inline Block</Select.Option>
+                <Select.Option value="flex">Flex</Select.Option>
+              </Select>
+            </Form.Item>
           </Collapse.Panel>
         </Collapse>
 
@@ -202,8 +204,8 @@ export default function PropsPicker() {
 
         <Divider />
 
-        <Form.Item label={<Label text="Color" style={{ minWidth: "10ch"}} />} colon={false}>
-          <ColorPicker 
+        <Form.Item label={<Label text="Color" style={{ minWidth: "10ch" }} />} colon={false}>
+          <ColorPicker
             value={cssProps.backgroundColor}
             showText
             onChange={(color) => onChange("backgroundColor", color.toHexString())}
@@ -223,28 +225,40 @@ export default function PropsPicker() {
         )}
 
         {selectedElement.type == "div" && (
-          <Flex gap="small" wrap="wrap"> 
-            <Button
-              size="medium"
-              onClick={() => {
-                dispatch(addElement({ parentId: idSelected, type: "div" }));
-              }}
-            >
-              Add a Div
-            </Button>
-            <Button
-              size="medium"
-              onClick={() => {
-                dispatch(addElement({ parentId: idSelected, type: "button" }));
-              }}
-            >
-              Add a Button
-            </Button>
-          </Flex>
+          <Form.Item>
+            <Flex gap="small" wrap="wrap">
+              <Button
+                size="medium"
+                onClick={() => {
+                  dispatch(addElement({ parentId: idSelected, type: "div" }));
+                }}
+              >
+                Add a Div
+              </Button>
+              <Button
+                size="medium"
+                onClick={() => {
+                  dispatch(addElement({ parentId: idSelected, type: "button" }));
+                }}
+              >
+                Add a Button
+              </Button>
+            </Flex>
+          </Form.Item>
         )}
+
+        <Divider />
+        <Form.Item>
+          <Button
+            danger
+            onClick={() => {
+              dispatch(deleteSelectedElement());
+            }}
+          >
+            Delete Element
+          </Button>
+        </Form.Item>
       </Form>
     </article>
-   
-
   );
 }

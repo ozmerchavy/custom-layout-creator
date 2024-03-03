@@ -50,7 +50,7 @@ export default function PropsPicker() {
 
   return (
     <article className={layout.PropsPicker}>
-      <Form action="none" labelAlign="left">
+      <Form action="none" labelAlign="left" >
         <Collapse ghost>
           <Collapse.Panel header="Position" key="1">
             <Form.Item label={<Label text="Position" style={{ minWidth: "10ch" }} />} colon={false}>
@@ -73,7 +73,7 @@ export default function PropsPicker() {
           </Collapse.Panel>
         </Collapse>
 
-        <Divider />
+        <Divider className={styles.DividerMargins}/>
         <Collapse ghost>
           <Collapse.Panel header="Dimensions" key="1">
             <Flex gap={10}>
@@ -149,7 +149,7 @@ export default function PropsPicker() {
           </Collapse.Panel>
         </Collapse>
 
-        <Divider />
+        <Divider  className={styles.DividerMargins} />
 
         <Collapse ghost>
           <Collapse.Panel header="Margin" key="3">
@@ -201,7 +201,7 @@ export default function PropsPicker() {
             </Form.Item>
           </Collapse.Panel>
         </Collapse>
-        <Divider />
+        <Divider  className={styles.DividerMargins} />
 
         <Collapse ghost>
           <Collapse.Panel header="Colors" key="4">
@@ -225,7 +225,7 @@ export default function PropsPicker() {
             )}
           </Collapse.Panel>
         </Collapse>
-        <Divider />
+        <Divider  className={styles.DividerMargins}/>
 
         {selectedElement.type == "button" && (
           <Form.Item label={<Label text="Button Text" style={{ minWidth: "10ch" }} />} colon={false}>
@@ -255,7 +255,7 @@ export default function PropsPicker() {
           </Form.Item>
         )}
 
-        <Divider />
+        <Divider  className={styles.DividerMargins}/>
         <Form.Item style={{ display: "flex", justifyContent: "center" }}>
           <Button
             danger

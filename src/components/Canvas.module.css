@@ -12,6 +12,10 @@
 
 .Canvas {
   padding: 1rem;
-  /* display: grid;
-  place-items: center; */
+  position: relative;
+}
+
+.Canvas > * {
+  position: absolute;
+  inset: 1rem;
 }

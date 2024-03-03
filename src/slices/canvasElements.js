@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 
 
 
-const exampleRootElement = {
+const OLD_exampleRootElement = {
   "id": "root",
   "type": "div",
   "cssProps": {
@@ -81,7 +81,23 @@ const exampleRootElement = {
   ]
 }
 
+function initialCssProps() {
+  const color = 'lch(80% 6.5 220.0)' // todo random
+  return {
+    padding: '8px',
+    borderRadius: '5px',
+    margin: '8px',
+    backgroundColor: color,
 
+  }
+}
+
+const exampleRootElement = {
+  id: 'root',
+  type: 'div',
+  cssProps: initialCssProps(),
+  children: [],
+}
 
 function updateHistory(state, affectedElementId, previousValue) {
   // if an element was added, previous value should be undefined.
@@ -202,11 +218,11 @@ export const canvasElements = createSlice({
       selectedElement.children = newText
     },
     undo: (state) => {
-      
+
       const lastChange = state.undoHistory.pop();
       if (!lastChange) return;
       const { affectedElementId, previousValue } = lastChange;
-     
+
       const elementToRevert = findObjectById(state.root, affectedElementId);
       if (!elementToRevert) return;
       // Directly revert the element's state to its previous value
@@ -222,18 +238,18 @@ export const canvasElements = createSlice({
       const lastRedo = state.redoHistory.pop();
       if (!lastRedo) return;
       const { affectedElementId, nextValue } = lastRedo;
-    
+
       const elementToRestore = findObjectById(state.root, affectedElementId);
       if (!elementToRestore) return;
-      
+
       state.undoHistory.push({
         "affectedElementId": affectedElementId,
         "previousValue": cloneDeep(elementToRestore)
       })
       Object.assign(elementToRestore, nextValue);
     },
-    
-    startNewHTML: (state, {payload})=>{
+
+    startNewHTML: (state, { payload }) => {
       const newRoot = payload
       const oldRoot = cloneDeep(state.root)
       state.undoHistory.push({
@@ -244,14 +260,9 @@ export const canvasElements = createSlice({
 
     },
 
-    
     deleteSelectedElement: (state) => {
       deleteElementById(state, state.idSelected)
     },
-
-
-
-
   },
 })
 

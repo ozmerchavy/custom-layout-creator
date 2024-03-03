@@ -165,6 +165,7 @@ export const canvasElements = createSlice({
   initialState: {
     root: exampleRootElement,
     idSelected: undefined,
+    idHovered: undefined,
     drag: null,
   },
   reducers: {
@@ -176,8 +177,16 @@ export const canvasElements = createSlice({
       const coords = payload;
       state.drag.coords = coords;
     },
-    endDrag: (state) => {
-      state.drag = null;
+    endDrag: (state, { payload }) => {
+      const  type = payload;
+      const parent = findObjectById(state.idHovered);
+      parent.children.push({
+        type,
+        id: makeId(),
+        cssProps: {},
+        children: type === "button" ? "div" : [],
+      })
+      
     },
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
@@ -186,12 +195,16 @@ export const canvasElements = createSlice({
         type,
         id: makeId(),
         cssProps: {},
-        children: type === "button" ? "text" : [],
+        children: type === "button" ? "div" : [],
       })
     },
     selectElement : (state, {payload} ) =>{
       const elementId = payload;
       state.idSelected = elementId
+    },
+    hoverElement : (state, {payload} ) =>{
+      const elementId = payload;
+      state.idHovered = elementId
     },
     modifySelectedElement: (state, {payload})=>{
       const cssProps = payload;
@@ -202,13 +215,14 @@ export const canvasElements = createSlice({
       const newText = payload
       const selectedElement = findObjectById(state.root, state.idSelected);
       selectedElement.children = newText
-    }
+    },
+
     
   },
 })
 
 export const { 
-  addElement, selectElement, modifySelectedElement, modifyButtonText,
+  addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText, 
   startDrag, moveDrag, endDrag
 } = canvasElements.actions
 export default canvasElements.reducer

@@ -1,6 +1,6 @@
 import layout from "../layout.module.css";
 import styles from "./ElementPicker.module.css";
-import { endDrag, moveDrag, startDrag } from "../slices/canvasElements";
+import { endDrag, startDrag, selectElement } from "../slices/canvasElements";
 import { store } from "../store";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
@@ -13,17 +13,18 @@ const icons = {
 function initDrag(event, type, setPos) {
   const coords = [event.pageX, event.pageY];
   store.dispatch(startDrag({ type, coords }));
+  store.dispatch(selectElement(null))
 
   const onMouseMove = (event) => {
     setPos(event.pageX, event.pageY);
   };
 
   const quitDrags = () => {
-    store.dispatch(endDrag());
-    document.removeEventListener("mousemove", onMouseMove);
-    document.removeEventListener("mouseup", quitDrags);
-    console.log(coords)
 
+    store.dispatch(endDrag("button"));
+    document.removeEventListener("mousedown", onMouseMove);
+    document.removeEventListener("click", quitDrags);
+    // console.log("last hovered:", idHovered)
   };
 
   document.addEventListener("mousemove", onMouseMove);
@@ -52,7 +53,7 @@ export default function ElementPicker() {
   const ref = useRef(null);
 
   const setPos = (x, y) => {
-    ref.current.style.left = x -10+ 'px'
+    ref.current.style.left = x - 10+ 'px'
     ref.current.style.top = y - 10 + 'px'
   }
 

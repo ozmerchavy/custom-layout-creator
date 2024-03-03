@@ -2,3 +2,10 @@
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   outline : 2px solid black;
 }
+
+.elementShine {
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.7); 
+  filter: brightness(102%);
+  transition: transform 0.2s ease;
+  transform: scale(1.05);
+}

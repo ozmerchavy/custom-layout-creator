@@ -62,7 +62,7 @@ export default function Canvas() {
     (state) => state.canvasElements
   );
   return (
-    <article className={layout.Canvas}>
+    <article className={`${layout.Canvas} ${style.Canvas}`}>
       <div>{renderElement(root, idSelected, idHovered, drag)}</div>
     </article>
   );

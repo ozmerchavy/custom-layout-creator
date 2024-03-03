@@ -9,3 +9,9 @@
   transition: transform 0.2s ease;
   transform: scale(1.05);
 }
+
+.Canvas {
+  padding: 1rem;
+  /* display: grid;
+  place-items: center; */
+}

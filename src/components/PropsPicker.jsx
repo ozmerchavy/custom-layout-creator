@@ -3,7 +3,7 @@ import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
-import { Row, Col, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
+import { Collapse, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
 
 function findAllDivsIds(node) {
   const ids = [];
@@ -44,142 +44,167 @@ export default function PropsPicker() {
 
   return (
     <article className={layout.PropsPicker}>
-      <Form action="none" labelAlign="left" >
-        <Form.Item  label={<Label text="Position" style={{minWidth:"10ch"}}/>} colon={false} >
-          <Select variant="borderless" value={cssProps.position} onChange={(value) => onChange("position", value)}>
-            <Select.Option value="absolute">Absolute</Select.Option>
-            <Select.Option value="relative">Relative</Select.Option>
-            <Select.Option value="fixed">Fixed</Select.Option>
-            <Select.Option value="static">Static</Select.Option>
-          </Select>
-        </Form.Item>
+      <Form action="none" labelAlign="left">
+        <Collapse ghost>
+          <Collapse.Panel header="CSS Properties" key="1">
+            <Form labelAlign="left">
+              <Form.Item label={<Label text="Position" style={{ minWidth: "10ch" }} />} colon={false}>
+                <Select
+                  variant="borderless"
+                  value={cssProps.position}
+                  onChange={(value) => onChange("position", value)}
+                >
+                  <Select.Option value="absolute">Absolute</Select.Option>
+                  <Select.Option value="relative">Relative</Select.Option>
+                  <Select.Option value="fixed">Fixed</Select.Option>
+                  <Select.Option value="static">Static</Select.Option>
+                </Select>
+              </Form.Item>
 
-        <Form.Item label={<Label text="Display" style={{minWidth:"10ch"}} />} colon={false}>
-          <Select variant="borderless" value={cssProps.display} onChange={(value) => onChange("display", value)}>
-            <Select.Option value="block">Block</Select.Option>
-            <Select.Option value="inline">Inline</Select.Option>
-            <Select.Option value="inline-block">Inline Block</Select.Option>
-            <Select.Option value="flex">Flex</Select.Option>
-          </Select>
-        </Form.Item>
+              <Form.Item label={<Label text="Display" style={{ minWidth: "10ch" }} />} colon={false}>
+                <Select variant="borderless" value={cssProps.display} onChange={(value) => onChange("display", value)}>
+                  <Select.Option value="block">Block</Select.Option>
+                  <Select.Option value="inline">Inline</Select.Option>
+                  <Select.Option value="inline-block">Inline Block</Select.Option>
+                  <Select.Option value="flex">Flex</Select.Option>
+                </Select>
+              </Form.Item>
+            </Form>
+          </Collapse.Panel>
+        </Collapse>
 
         <Divider />
-        <Flex gap={10}>
-          <Form.Item label={<Label text="W" />} colon={false}>
-            <InputNumber
-              value={cssProps.width}
-              onChange={(newValue) => onChange("width", newValue)}
-              className={styles.InputNumber}
-              variant="borderless"
-            />
-          </Form.Item>
-
-          <Form.Item label={<Label text="H" />} colon={false}>
-            <InputNumber
-              value={cssProps.height}
-              onChange={(newValue) => onChange("height", newValue)}
-              variant="borderless"
-            />
-          </Form.Item>
-        </Flex>
-
-        <Form.Item>
-          <div style={{ marginLeft: "6em" }}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <InputNumber
-                placeholder="top"
-                value={cssProps.paddingTop}
-                onChange={(newValue) => onChange("paddingTop", newValue)}
-                style={{ marginBottom: "2px", width: "8ch" }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "1.5px",
-                }}
-              >
-                <Label text="Padding" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
+        <Collapse ghost>
+          <Collapse.Panel header="Dimensions" key="1">
+            <Flex gap={10}>
+              <Form.Item label={<Label text="W" />} colon={false}>
                 <InputNumber
-                  placeholder="left"
-                  style={{ width: "8ch" }}
-                  value={cssProps.paddingLeft}
-                  onChange={(newValue) => onChange("paddingLeft", newValue)}
+                  value={cssProps.width}
+                  onChange={(newValue) => onChange("width", newValue)}
+                  className={styles.InputNumber}
+                  variant="borderless"
                 />
+              </Form.Item>
 
+              <Form.Item label={<Label text="H" />} colon={false}>
                 <InputNumber
-                  placeholder="px"
-                  style={{ width: "8ch" }}
-                  value={cssProps.paddingRight}
-                  onChange={(newValue) => onChange("paddingRight", newValue)}
+                  value={cssProps.height}
+                  onChange={(newValue) => onChange("height", newValue)}
+                  variant="borderless"
                 />
+              </Form.Item>
+            </Flex>
+          </Collapse.Panel>
+        </Collapse>
+
+        <Divider />
+        <Collapse ghost>
+          <Collapse.Panel header="Padding" key="2">
+            <Form.Item>
+              <div style={{ marginLeft: "6em" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <InputNumber
+                    placeholder="top"
+                    value={cssProps.paddingTop}
+                    onChange={(newValue) => onChange("paddingTop", newValue)}
+                    style={{ marginBottom: "2px", width: "8ch" }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "1.5px",
+                    }}
+                  >
+                    <Label text="Padding" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
+                    <InputNumber
+                      placeholder="left"
+                      style={{ width: "8ch" }}
+                      value={cssProps.paddingLeft}
+                      onChange={(newValue) => onChange("paddingLeft", newValue)}
+                    />
+
+                    <InputNumber
+                      placeholder="px"
+                      style={{ width: "8ch" }}
+                      value={cssProps.paddingRight}
+                      onChange={(newValue) => onChange("paddingRight", newValue)}
+                    />
+                  </div>
+                  <InputNumber
+                    placeholder="bottom"
+                    value={cssProps.paddingBottom}
+                    onChange={(newValue) => onChange("paddingBottom", newValue)}
+                    style={{ marginTop: "2px", width: "8ch" }}
+                  />
+                </div>
               </div>
-              <InputNumber
-                placeholder="bottom"
-                value={cssProps.paddingBottom}
-                onChange={(newValue) => onChange("paddingBottom", newValue)}
-                style={{ marginTop: "2px", width: "8ch" }}
-              />
-            </div>
-          </div>
-        </Form.Item>
-
-        <Form.Item>
-          <div style={{ marginLeft: "6em" }}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <InputNumber
-                placeholder="top"
-                value={cssProps.marginTop}
-                onChange={(newValue) => onChange("marginTop", newValue)}
-                style={{ marginBottom: "2px", width: "8ch" }}
-              />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  gap: "1.5px",
-                }}
-              >
-                <Label text="Margin" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
-                <InputNumber
-                  placeholder="left"
-                  style={{ width: "8ch" }}
-                  value={cssProps.marginLeft}
-                  onChange={(newValue) => onChange("marginLeft", newValue)}
-                />
-
-                <InputNumber
-                  placeholder="px"
-                  style={{ width: "8ch" }}
-                  value={cssProps.marginRight}
-                  onChange={(newValue) => onChange("marginRight", newValue)}
-                />
-              </div>
-              <InputNumber
-                placeholder="bottom"
-                value={cssProps.marginBottom}
-                onChange={(newValue) => onChange("marginBottom", newValue)}
-                style={{ marginTop: "2px", width: "8ch" }}
-              />
-            </div>
-          </div>
-        </Form.Item>
+            </Form.Item>
+          </Collapse.Panel>
+        </Collapse>
 
         <Divider />
 
-        <Form.Item label={<Label text="Color"  style={{minWidth:"10ch"}} />} colon={false}>
+        <Collapse ghost>
+          <Collapse.Panel header="Margin" key="3">
+            <Form.Item>
+              <div style={{ marginLeft: "6em" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <InputNumber
+                    placeholder="top"
+                    value={cssProps.marginTop}
+                    onChange={(newValue) => onChange("marginTop", newValue)}
+                    style={{ marginBottom: "2px", width: "8ch" }}
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      gap: "1.5px",
+                    }}
+                  >
+                    <Label text="Margin" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
+                    <InputNumber
+                      placeholder="left"
+                      style={{ width: "8ch" }}
+                      value={cssProps.marginLeft}
+                      onChange={(newValue) => onChange("marginLeft", newValue)}
+                    />
+
+                    <InputNumber
+                      placeholder="px"
+                      style={{ width: "8ch" }}
+                      value={cssProps.marginRight}
+                      onChange={(newValue) => onChange("marginRight", newValue)}
+                    />
+                  </div>
+                  <InputNumber
+                    placeholder="bottom"
+                    value={cssProps.marginBottom}
+                    onChange={(newValue) => onChange("marginBottom", newValue)}
+                    style={{ marginTop: "2px", width: "8ch" }}
+                  />
+                </div>
+              </div>
+            </Form.Item>
+          </Collapse.Panel>
+        </Collapse>
+
+        <Divider />
+
+        <Form.Item label={<Label text="Color" style={{ minWidth: "10ch" }} />} colon={false}>
           <ColorPicker
             value={cssProps.backgroundColor}
             showText
@@ -189,25 +214,15 @@ export default function PropsPicker() {
         </Form.Item>
 
         {selectedElement.type == "button" && (
-          <Form.Item label={<Label text="Button Text"  style={{minWidth:"10ch"}} />} colon={false}>
-            <Input
-              type="text"
-              value={selectedElement.children}
-              onChange={(event) => modifyText(event.target.value)}
-            />
+          <Form.Item label={<Label text="Button Text" style={{ minWidth: "10ch" }} />} colon={false}>
+            <Input type="text" value={selectedElement.children} onChange={(event) => modifyText(event.target.value)} />
           </Form.Item>
         )}
         {selectedElement.type == "button" && (
-          <Form.Item label={<Label text="Text Color"  style={{minWidth:"10ch"}} />} colon={false}>
-            <ColorPicker
-              value={cssProps.color}
-              showText
-              onChange={(color) => onChange("color", color.toHexString())}
-            />
+          <Form.Item label={<Label text="Text Color" style={{ minWidth: "10ch" }} />} colon={false}>
+            <ColorPicker value={cssProps.color} showText onChange={(color) => onChange("color", color.toHexString())} />
           </Form.Item>
         )}
-
-        <Divider />
 
         {selectedElement.type == "div" && (
           <Flex gap="small" wrap="wrap">

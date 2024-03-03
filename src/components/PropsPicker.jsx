@@ -2,27 +2,8 @@ import { useRef, useState } from "react";
 import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addElement,
-  findObjectById,
-  modifySelectedElement,
-  modifyButtonText,
-} from "../slices/canvasElements";
+import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
 import { Row, Col, Input, Form, InputNumber, Select, ColorPicker, Button, Flex } from "antd";
-
-const SelectUnit = (
-  <Select
-    defaultValue="px"
-    style={{
-      width: 60,
-    }}
-  >
-    <Option value="px">px</Option>
-    <Option value="%">%</Option>
-    <Option value="rem">rem</Option>
-    <Option value="em">em</Option>
-  </Select>
-);
 
 function findAllDivsIds(node) {
   const ids = [];
@@ -40,8 +21,6 @@ function findAllDivsIds(node) {
 }
 
 export default function PropsPicker() {
-  // const [unit, setUnit] = useState("px"); // State to store the selected unit
-
   const { root, idSelected } = useSelector((store) => store.canvasElements);
   const selectedElement = findObjectById(root, idSelected);
   const dispatch = useDispatch();
@@ -59,25 +38,31 @@ export default function PropsPicker() {
     dispatch(modifyButtonText(newText));
   };
 
+  const Label = ({ text }) => {
+    return <label style={{ color: "#aaa" }}>{text}</label>;
+  };
+
   return (
     <article className={layout.PropsPicker}>
       <Form action="none">
-        <p>selected element's id {idSelected}</p>
-        <Form.Item label="Width">
-          <InputNumber
-            addonAfter={SelectUnit}
-            value={cssProps.width}
-            onChange={(newValue) => onChange("width", newValue)}
-          />
-        </Form.Item>
+        <Flex gap={10}>
+          <Form.Item label={<Label text="W" />} colon={false}>
+            <InputNumber
+              addonAfter="px"
+              value={cssProps.width}
+              onChange={(newValue) => onChange("width", newValue)}
+              className={styles.InputNumber}
+            />
+          </Form.Item>
 
-        <Form.Item label="Height">
-          <InputNumber
-            addonAfter={SelectUnit}
-            value={cssProps.height}
-            onChange={(newValue) => onChange("height", newValue)}
-          />
-        </Form.Item>
+          <Form.Item label={<Label text="H" />} colon={false}>
+            <InputNumber
+              addonAfter="px"
+              value={cssProps.height}
+              onChange={(newValue) => onChange("height", newValue)}
+            />
+          </Form.Item>
+        </Flex>
 
         <Form.Item label="Background Color">
           <ColorPicker
@@ -93,9 +78,7 @@ export default function PropsPicker() {
             <Input
               type="text"
               disabled={selectedElement.type !== "button"}
-              value={
-                selectedElement.type == "button" ? selectedElement.children : "only for buttons"
-              }
+              value={selectedElement.type == "button" ? selectedElement.children : "only for buttons"}
               onChange={(event) => modifyText(event.target.value)}
             />
           </Form.Item>
@@ -156,11 +139,7 @@ export default function PropsPicker() {
         </Form.Item>
 
         <Form.Item label="Margin">
-          <InputNumber
-            addonAfter={SelectUnit}
-            value={cssProps.margin}
-            onChange={(newValue) => onChange("margin", newValue)}
-          />
+          <InputNumber value={cssProps.margin} onChange={(newValue) => onChange("margin", newValue)} />
         </Form.Item>
 
         <Form.Item label="Position">

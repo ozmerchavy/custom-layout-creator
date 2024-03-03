@@ -38,8 +38,8 @@ export default function PropsPicker() {
     dispatch(modifyButtonText(newText));
   };
 
-  const Label = ({ text }) => {
-    return <label style={{ color: "#aaa" }}>{text}</label>;
+  const Label = ({ text, style }) => {
+    return <label style={{ color: "#aaa", ...style }}>{text}</label>;
   };
 
   return (
@@ -84,7 +84,8 @@ export default function PropsPicker() {
           </Form.Item>
         </Flex>
 
-        <Form.Item label="Padding">
+        <Form.Item>
+          <div style={{marginLeft: '6em'}}> 
           <div
             style={{
               display: "flex",
@@ -93,7 +94,7 @@ export default function PropsPicker() {
             }}
           >
             <InputNumber
-              placeholder="px"
+              placeholder="top"
               value={cssProps.paddingTop}
               onChange={(newValue) => onChange("paddingTop", newValue)}
               style={{ marginBottom: "2px", width: "8ch" }}
@@ -105,8 +106,9 @@ export default function PropsPicker() {
                 gap: "1.5px",
               }}
             >
+              <Label text="Padding" style={{position: 'absolute', left: 0, paddingBlock: 4 }} />
               <InputNumber
-                placeholder="px"
+                placeholder="left"
                 style={{ width: "8ch" }}
                 value={cssProps.paddingLeft}
                 onChange={(newValue) => onChange("paddingLeft", newValue)}
@@ -120,17 +122,38 @@ export default function PropsPicker() {
               />
             </div>
             <InputNumber
-              placeholder="px"
+              placeholder="bottom"
               value={cssProps.paddingBottom}
               onChange={(newValue) => onChange("paddingBottom", newValue)}
               style={{ marginTop: "2px", width: "8ch" }}
             />
           </div>
+
+          </div>
+   
         </Form.Item>
 
-        <Form.Item label="Margin">
-          <InputNumber value={cssProps.margin} onChange={(newValue) => onChange("margin", newValue)} />
-        </Form.Item>
+        <Flex gap={10}>
+          <Form.Item label={<Label text="Margin Top" />} colon={false}>
+            <InputNumber
+              value={cssProps.marginTop}
+              onChange={(newValue) => onChange("marginTop", newValue)}
+              className={styles.InputNumber}
+              variant="borderless"
+            />
+          </Form.Item>
+
+          <Form.Item label={<Label text="Margin Bottom" />} colon={false}>
+            <InputNumber
+              value={cssProps.marginBottom}
+              onChange={(newValue) => onChange("height", newValue)}
+              variant="borderless"
+            />
+          </Form.Item>
+        </Flex>
+
+
+       
 
         <Divider />
 

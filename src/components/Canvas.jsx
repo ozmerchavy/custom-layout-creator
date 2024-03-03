@@ -12,7 +12,7 @@ function elementClicked(elementID){
   store.dispatch(selectElement(elementID));
 }
 
-function renderElement(node, idSelected) {
+function renderElement(node, idSelected, isDrag) {
   if (typeof node === 'string') {
     return node;
   }
@@ -27,21 +27,25 @@ function renderElement(node, idSelected) {
   if (node.id == idSelected) {
     props.className = style.selectedElement;
   }
-
   props.onClick = (event) => {
     event.stopPropagation();
     elementClicked(node.id)
+  }
+  props.onMouseEnter = (event) => {
+    if (isDrag) {
+      console.log(node.id, "drag");
+    }
   }
   return React.createElement(node.type, props, ...children)
 }
 
 
 export default function Canvas() {
-  const { root, idSelected } = useSelector((state) => state.canvasElements);
-
+  const { root, idSelected, drag } = useSelector((state) => state.canvasElements);
+   
   return (
     <article className={layout.Canvas}>
-      <div>{renderElement(root, idSelected)}</div>
+      <div>{renderElement(root, idSelected, drag)}</div>
     </article>
   );
 }

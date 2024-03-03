@@ -3,20 +3,19 @@ import styles from "./ElementPicker.module.css";
 import { endDrag, moveDrag, startDrag } from "../slices/canvasElements";
 import { store } from "../store";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const icons = {
   div: "container.png",
   button: "button.png",
 };
 
-function initDrag(event, type) {
+function initDrag(event, type, setPos) {
   const coords = [event.pageX, event.pageY];
   store.dispatch(startDrag({ type, coords }));
 
   const onMouseMove = (event) => {
-    const coords = [event.pageX, event.pageY];
-    store.dispatch(moveDrag(coords));
+    setPos(event.pageX, event.pageY);
   };
 
   const quitDrags = () => {
@@ -37,30 +36,9 @@ function ItemOption({ type }) {
   );
 }
 
-export function DragThingy() {
-  const drag = useSelector((store) => store.canvasElements.drag);
-
-  if (!drag) return;  
-
-  const [x, y] = drag.coords;
-
+function ElementButton({ type, setPos }) {
   return (
-    <div
-      draggable="false"
-      style={{
-        position: "absolute",
-        left: `${x - 25}px`,
-        top: `${y - 25}px`,
-      }}
-    >
-      <ItemOption type={drag.type} />
-    </div>
-  );
-}
-
-function ElementButton({ type }) {
-  return (
-    <div onMouseDown={(event) => initDrag(event, type)}>
+    <div onMouseDown={(event) => initDrag(event, type, setPos)}>
       <ItemOption type={type} />
       <span draggable="false">{type}</span>
     </div>
@@ -68,10 +46,29 @@ function ElementButton({ type }) {
 }
 
 export default function ElementPicker() {
+  const drag = useSelector((store) => store.canvasElements.drag);
+  const ref = useRef(null);
+
+  const setPos = (x, y) => {
+    ref.current.style.left = x -10+ 'px'
+    ref.current.style.top = y - 10 + 'px'
+  }
+
   return (
     <article className={`${layout.ElementPicker} ${styles.ElementPicker}`}>
-      <ElementButton text="Button" icon="button.png" type="button" />
-      <ElementButton text="Container" icon="container.png" type="div" />
+      <ElementButton text="Button" icon="button.png" type="button" setPos={setPos} />
+      <ElementButton text="Container" icon="container.png" type="div" setPos={setPos} />
+      
+      { drag && <div
+        draggable="false"
+        ref={ref}
+        style={{
+          position: "absolute",
+          zIndex: 9,
+        }}
+      >
+        <ItemOption type={drag.type} />
+      </div>}
     </article>
   );
 }

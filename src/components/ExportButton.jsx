@@ -76,8 +76,8 @@ export default function ExportButton(){
   };
   return (
     <article className={layout.ExportButton}>
-      <Button type="primary" onClick={showModal}>
-        Review and Export HTML
+      <Button type='default' onClick={showModal}>
+        Export HTML
       </Button>
       <Modal
         open={open}

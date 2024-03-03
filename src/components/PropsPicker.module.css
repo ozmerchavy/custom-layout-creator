@@ -1,6 +1,5 @@
 .InputNumber {
-  border: none;
-  width: 12ch;
+  border: none !important;
 }
 
 .InputNumber:hover {

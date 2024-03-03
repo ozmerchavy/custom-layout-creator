@@ -78,7 +78,7 @@ export default function ImportHTML() {
   return (
     <div className={layout.Import}>
       <Upload {...props}>
-        <Button icon={<UploadOutlined />}>Import HTML</Button>
+        <Button type='text' icon={<UploadOutlined />}>Import</Button>
       </Upload>
       {parseError && <div style={{ color: 'red' }}>Error parsing HTML. Please try again.</div>}
     </div>

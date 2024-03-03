@@ -3,7 +3,7 @@ import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { addElement, findObjectById, modifySelectedElement, modifyButtonText } from "../slices/canvasElements";
-import { Row, Col, Input, Form, InputNumber, Select, ColorPicker, Button, Flex } from "antd";
+import { Row, Col, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
 
 function findAllDivsIds(node) {
   const ids = [];
@@ -45,54 +45,44 @@ export default function PropsPicker() {
   return (
     <article className={layout.PropsPicker}>
       <Form action="none">
+
+      <Form.Item label="Position">
+          <Select value={cssProps.position} onChange={(value) => onChange("position", value)}>
+            <Select.Option value="absolute">Absolute</Select.Option>
+            <Select.Option value="relative">Relative</Select.Option>
+            <Select.Option value="fixed">Fixed</Select.Option>
+            <Select.Option value="static">Static</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Form.Item label="Display">
+          <Select value={cssProps.display} onChange={(value) => onChange("display", value)}>
+            <Select.Option value="block">Block</Select.Option>
+            <Select.Option value="inline">Inline</Select.Option>
+            <Select.Option value="inline-block">Inline Block</Select.Option>
+            <Select.Option value="flex">Flex</Select.Option>
+          </Select>
+        </Form.Item>
+
+        <Divider/>
         <Flex gap={10}>
           <Form.Item label={<Label text="W" />} colon={false}>
             <InputNumber
-              addonAfter="px"
               value={cssProps.width}
               onChange={(newValue) => onChange("width", newValue)}
               className={styles.InputNumber}
+              variant="borderless"
             />
           </Form.Item>
 
           <Form.Item label={<Label text="H" />} colon={false}>
             <InputNumber
-              addonAfter="px"
               value={cssProps.height}
               onChange={(newValue) => onChange("height", newValue)}
+              variant="borderless"
             />
           </Form.Item>
         </Flex>
-
-        <Form.Item label="Background Color">
-          <ColorPicker
-            value={cssProps.backgroundColor}
-            showText
-            onChange={(color) => onChange("backgroundColor", color.toHexString())}
-            placement="topLeft"
-          />
-        </Form.Item>
-
-        {selectedElement.type == "button" && (
-          <Form.Item label="Button Text">
-            <Input
-              type="text"
-              disabled={selectedElement.type !== "button"}
-              value={selectedElement.type == "button" ? selectedElement.children : "only for buttons"}
-              onChange={(event) => modifyText(event.target.value)}
-            />
-          </Form.Item>
-        )}
-        {selectedElement.type == "button" && (
-          <Form.Item label="Text Color">
-            <ColorPicker
-              value={cssProps.color}
-              showText
-              disabled={selectedElement.type !== "button"}
-              onChange={(color) => onChange("color", color.toHexString())}
-            />
-          </Form.Item>
-        )}
 
         <Form.Item label="Padding">
           <div
@@ -142,23 +132,45 @@ export default function PropsPicker() {
           <InputNumber value={cssProps.margin} onChange={(newValue) => onChange("margin", newValue)} />
         </Form.Item>
 
-        <Form.Item label="Position">
-          <Select value={cssProps.position} onChange={(value) => onChange("position", value)}>
-            <Select.Option value="absolute">Absolute</Select.Option>
-            <Select.Option value="relative">Relative</Select.Option>
-            <Select.Option value="fixed">Fixed</Select.Option>
-            <Select.Option value="static">Static</Select.Option>
-          </Select>
+        <Divider />
+
+        <Form.Item label={<Label text="Color" />} colon={false}>
+          <ColorPicker
+            value={cssProps.backgroundColor}
+            showText
+            onChange={(color) => onChange("backgroundColor", color.toHexString())}
+            placement="topLeft"
+          />
         </Form.Item>
 
-        <Form.Item label="Display">
-          <Select value={cssProps.display} onChange={(value) => onChange("display", value)}>
-            <Select.Option value="block">Block</Select.Option>
-            <Select.Option value="inline">Inline</Select.Option>
-            <Select.Option value="inline-block">Inline Block</Select.Option>
-            <Select.Option value="flex">Flex</Select.Option>
-          </Select>
-        </Form.Item>
+        {selectedElement.type == "button" && (
+          <Form.Item label="Button Text">
+            <Input
+              type="text"
+              disabled={selectedElement.type !== "button"}
+              value={selectedElement.type == "button" ? selectedElement.children : "only for buttons"}
+              onChange={(event) => modifyText(event.target.value)}
+            />
+          </Form.Item>
+        )}
+        {selectedElement.type == "button" && (
+          <Form.Item label="Text Color">
+            <ColorPicker
+              value={cssProps.color}
+              showText
+              disabled={selectedElement.type !== "button"}
+              onChange={(color) => onChange("color", color.toHexString())}
+            />
+          </Form.Item>
+        )}
+
+        
+
+
+
+        <Divider />
+
+      
 
         {selectedElement.type == "div" && (
           <Flex gap="small" wrap="wrap">

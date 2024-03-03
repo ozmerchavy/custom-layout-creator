@@ -47,18 +47,12 @@ export default function History() {
 
   return (
     <div className={layout.History}>
-      <Button icon={<UndoOutlined />} onClick={handleUndo} disabled={history.length === 0}>
+      <Button type='text' icon={<UndoOutlined />} onClick={handleUndo} disabled={history.length === 0}>
         Undo
       </Button>
-      <Button icon={<RedoOutlined />} onClick={handleRedo} disabled={redoHistory.length === 0}>
+      <Button type='text' icon={<RedoOutlined />} onClick={handleRedo} disabled={redoHistory.length === 0}>
         Redo
       </Button>
-      <p>Editing History:</p>
-      <ul>
-        {history.map((change, index) => (
-          <li key={index + ':' + change.changeSummary}>{change.changeSummary}</li>
-        ))}
-      </ul>
     </div>
   );
 }

@@ -5,36 +5,31 @@ import { store } from "../store";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
-function useDrag() {
-  const drag = useSelector((store) => store.canvasElements.drag);
 
-  useEffect(() => {
-    if (!drag) return;
+function initDrag(event, type){
+  const coords = [event.pageX, event.pageY]
+  store.dispatch(startDrag({ type, coords }))
 
-    const onMouseMove = (event) => {
-      const coords = [event.pageX, event.pageY];
-      store.dispatch(moveDrag(coords));
-    };
+  const onMouseMove = (event) => {
+    const coords = [event.pageX, event.pageY];
+    store.dispatch(moveDrag(coords));
+  };
 
-    const onMouseUp = () => {
-      store.dispatch(endDrag());
-    };
+  const quitDrags = ()=>{
+    store.dispatch(endDrag());
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', quitDrags);
+  }
 
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('mouseup', onMouseUp)
-
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    }
-  }, [drag])
-
-  return drag;
+  document.addEventListener('mousemove', onMouseMove)
+  document.addEventListener('mouseup', quitDrags)
 }
 
 
+
+
 export function DragThingy() {
-  const drag = useDrag();
+  const drag = useSelector((store) => store.canvasElements.drag);
 
   if (!drag) return;
 
@@ -52,13 +47,9 @@ export function DragThingy() {
 }
 
 function ElementButton({ text, icon, type }) {
-  const onMouseDown = (event) => {
-    const coords = [event.pageX, event.pageY]
-    store.dispatch(startDrag({ type, coords }))
-  };
 
   return (
-    <span className={styles.ElementButton} onMouseDown={onMouseDown}>
+    <span className={styles.ElementButton} onMouseDown={(event)=>initDrag(event, type)}>
       <img src={icon} alt="" />
       <span>{text}</span>
     </span>

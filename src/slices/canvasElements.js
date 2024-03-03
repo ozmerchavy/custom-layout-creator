@@ -170,7 +170,7 @@ export const canvasElements = createSlice({
   reducers: {
     startDrag: (state, { payload }) => {
       const { type, coords } = payload;
-      console.log(type, coords);
+      state.drag = { type, coords };
     },
     moveDrag: (state, { payload }) => {
       const coords = payload;

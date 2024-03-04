@@ -1,27 +1,23 @@
 import layout from "../layout.module.css";
 import styles from "./ElementPicker.module.css";
-import { endDrag, startDrag, selectElement } from "../slices/canvasElements";
-import { store } from "../store";
-import { useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
 import { IonIcon } from "@ionic/react";
 import * as ion from 'ionicons/icons'
 
 
 function ItemOption({ type }) {
   return (
-    <span draggable="false" className={styles.ElementButton}>
+    <span className={styles.ElementButton}>
       <IonIcon icon={ion.addSharp} />
       {/* todo icon depends on type */}
     </span>
   );
 }
 
-function ElementButton({ type, setPos }) {
+function ElementButton({ type }) {
   return (
     <div>
       <ItemOption type={type} />
-      <span draggable="false">{type}</span>
+      <span>{type}</span>
     </div>
   );
 }

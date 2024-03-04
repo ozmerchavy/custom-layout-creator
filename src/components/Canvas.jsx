@@ -20,7 +20,7 @@ function elementHovered(elementID) {
   store.dispatch(hoverElement(elementID));
 }
 
-function renderElement(node, idSelected, idHovered, isDrag) {
+function renderElement(node, idSelected, idHovered) {
   if (typeof node === "string") {
     return node;
   }
@@ -31,7 +31,7 @@ function renderElement(node, idSelected, idHovered, isDrag) {
 
   const children = Array.isArray(node.children)
     ? node.children.map((child) =>
-        renderElement(child, idSelected, idHovered, isDrag)
+        renderElement(child, idSelected, idHovered)
       )
     : node.children;
 
@@ -49,23 +49,18 @@ function renderElement(node, idSelected, idHovered, isDrag) {
     event.stopPropagation();
     elementClicked(node.id);
   };
-  props.onMouseMove = (event) => {
-    event.stopPropagation();
-    if (node.id != "root" && isDrag) {
-      elementHovered(node.id);
-    }
-  };
+
   
   return React.createElement(canvasElementsDesign[node.type], props, ...children);
 }
 
 export default function Canvas() {
-  const { root, idSelected, idHovered, drag } = useSelector(
+  const { root, idSelected, idHovered } = useSelector(
     (state) => state.canvasElements
   );
   return (
     <article className={`${layout.Canvas} ${style.Canvas}`}>
-      {renderElement(root, idSelected, idHovered, drag)}
+      {renderElement(root, idSelected, idHovered)}
     </article>
   );
 }

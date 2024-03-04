@@ -261,7 +261,7 @@ export const canvasElements = createSlice({
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-  startDrag, moveDrag, endDrag, undo, redo, isThereUndo, isThereRedo, deleteSelectedElement,
+   undo, redo, isThereUndo, isThereRedo, deleteSelectedElement,
   startNewHTML
 } = canvasElements.actions
 export default canvasElements.reducer

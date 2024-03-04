@@ -107,7 +107,7 @@ export const canvasElements = createSlice({
         type,
         id,
         cssProps: initialCssProps(type, id, parent),
-        children: type === "button" ? "Click Me!" : [],
+        children: type === "button" ? "Click Me" : [],
       })
     },
     selectElement: (state, { payload }) => {

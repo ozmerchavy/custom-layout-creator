@@ -1,8 +1,27 @@
-# React + Vite
+# Project Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
+This project is a layout designer tool built using React, Redux, and Redux Toolkit. It allows users to create and customize layouts with a user-friendly interface. One of its key features is the ability to export layouts as HTML.
 
-Currently, two official plugins are available:
+## Features
+- Drag-and-drop interface for adding elements
+- Selection of elements with highlighting for easy editing
+- Export layout as HTML
+- History tracking for undo and redo actions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Code Structure
+The project consists of several components:
+- `App`: The main component responsible for rendering the layout designer interface.
+- `Canvas`: Renders the layout canvas where users can design their layouts.
+- `PropsPicker`: Provides options to customize the properties of selected elements.
+- `ExportButton`: Allows users to export the current layout as HTML.
+- `ImportHTML`: To be implemented - will enable users to upload HTML layouts.
+- `History`: Tracks the history of actions for undo and redo functionality.
+- `Header`: Displays the header containing navigation and action buttons.
+
+## To Do
+- Implement upload option for importing layouts
+- Improve user experience with smoother interactions and feedback
+- Add a feature to clear all elements from the canvas
+

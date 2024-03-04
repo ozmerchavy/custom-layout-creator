@@ -11,11 +11,10 @@
 }
 
 .Canvas {
-  padding: 1rem;
   position: relative;
 }
 
 .Canvas > * {
   position: absolute;
-  inset: 1rem;
+  inset: -0.5rem;
 }

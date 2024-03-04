@@ -4,11 +4,8 @@ import { endDrag, startDrag, selectElement } from "../slices/canvasElements";
 import { store } from "../store";
 import { useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
-
-const icons = {
-  div: "container.png",
-  button: "button.png",
-};
+import { IonIcon } from "@ionic/react";
+import * as ion from 'ionicons/icons'
 
 function initDrag(event, type, setPos) {
   const coords = [event.pageX, event.pageY];
@@ -31,10 +28,11 @@ function initDrag(event, type, setPos) {
   document.addEventListener("mouseup", quitDrags);
 }
 
-function ItemOption({ type }) {
+function ItemOption({ icon }) {
   return (
     <span draggable="false" className={styles.ElementButton}>
-      <img draggable="false" src={icons[type]} alt="" />
+      <IonIcon icon={ion.addSharp} />
+      {/* todo icon depends on type */}
     </span>
   );
 }

@@ -98,7 +98,7 @@ function initialCssProps() {
     marginBottom: '8px',
     marginRight: '8px',
     marginLeft: '8px',
-    borderRadius: '5px',
+    borderRadius: '3px',
     margin: '8px',
     backgroundColor: color,
   }

@@ -37,7 +37,9 @@ function renderElement(node, idSelected, idHovered, isDrag) {
 
   const props = { style: cssProps };
   if (node.id == idSelected) {
-    props.className = style.selectedElement;
+    if (node.id != "root") {
+      props.className = style.selectedElement;
+    }
   }
   if (node.id == idHovered) {
     props.className = style.elementShine;

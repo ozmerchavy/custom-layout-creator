@@ -3,21 +3,13 @@ import { useSelector } from "react-redux";
 import style from "./Canvas.module.css";
 import { selectElement, hoverElement } from "../slices/canvasElements";
 import React, { useEffect, useState } from "react";
-import { store } from "../store.js";
 import { Button } from "antd";
-
-const canvasElementsDesign = {
-  div: "div",
-  button: Button
-}
-
+import { useDrop } from 'react-dnd';
+import { store } from "../store.js";
+import { addElement } from "../slices/canvasElements";
 
 function elementClicked(elementID) {
   store.dispatch(selectElement(elementID));
-}
-
-function elementHovered(elementID) {
-  store.dispatch(hoverElement(elementID));
 }
 
 function renderElement(node, idSelected, idHovered) {
@@ -50,8 +42,9 @@ function renderElement(node, idSelected, idHovered) {
     elementClicked(node.id);
   };
 
-  
-  return React.createElement(canvasElementsDesign[node.type], props, ...children);
+  if (node.type == 'button') return <Button {...props}>{children}</Button>
+
+  if (node.type == 'div') return <NestedDropZone props={props} id={node.id}>{children}</NestedDropZone>
 }
 
 export default function Canvas() {
@@ -62,5 +55,34 @@ export default function Canvas() {
     <article className={`${layout.Canvas} ${style.Canvas}`}>
       {renderElement(root, idSelected, idHovered)}
     </article>
+  );
+}
+
+
+////
+
+function NestedDropZone({ children, props, id }) {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: 'box',
+    drop: (item, monitor) => {
+      const didDrop = monitor.didDrop();
+      if (didDrop) {
+        return; // prevent nested drop zones from receiving the drop event
+      }
+      store.dispatch(addElement({ parentId: id, type: item.type }));
+      
+    },
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver({ shallow: true }),
+    }),
+  }));
+
+  return (
+    <div
+      ref={drop}
+      {...props}
+    >
+      {children}
+    </div>
   );
 }

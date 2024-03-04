@@ -2,7 +2,8 @@ import layout from "../layout.module.css";
 import styles from "./ElementPicker.module.css";
 import { IonIcon } from "@ionic/react";
 import * as ion from 'ionicons/icons'
-
+import { useDrag } from "react-dnd";
+import { useDragLayer } from 'react-dnd';
 
 function ItemOption({ type }) {
   return (
@@ -13,20 +14,42 @@ function ItemOption({ type }) {
   );
 }
 
-function ElementButton({ type }) {
-  return (
-    <div>
-      <ItemOption type={type} />
-      <span>{type}</span>
-    </div>
-  );
-}
-
 export default function ElementPicker() {
   return (
     <article className={`${layout.ElementPicker} ${styles.ElementPicker}`}>
-      <ElementButton text="Button" icon="button.png" type="button" />
-      <ElementButton text="Container" icon="container.png" type="div" />
+      <ElementButton type="button" />
+      <ElementButton type="div" />
     </article>
+  );
+}
+
+
+///
+
+function ElementButton({ type }) {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'box',
+    item: { type },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
+  const { currentOffset } = useDragLayer((monitor) => ({
+    item: monitor.getItem(),
+    initialOffset: monitor.getInitialClientOffset(),
+    currentOffset: monitor.getClientOffset(),
+    isDragging: monitor.isDragging(),
+  }));
+
+  if (isDragging) {
+    console.log('dragging at', currentOffset);
+  }
+
+  return (
+    <div ref={drag} style={{opacity: isDragging ? 0.5 : 1}}>
+      <ItemOption type={type} />
+      <span>{type}</span>
+    </div>
   );
 }

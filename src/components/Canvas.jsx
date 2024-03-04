@@ -67,10 +67,10 @@ function NestedDropZone({ children, props, id }) {
     drop: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (didDrop) {
-        return; // prevent nested drop zones from receiving the drop event
+        return;// prevent nested drop zones from receiving the drop event
       }
       store.dispatch(addElement({ parentId: id, type: item.type }));
-      
+    
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver({ shallow: true }),
@@ -82,7 +82,7 @@ function NestedDropZone({ children, props, id }) {
       ref={drop}
       {...props}
     >
-      <div style={{ opacity: isOver ? 0.5 : 1 }}>
+      <div style={{ opacity: isOver ? 0.5 : 1, display: 'contents' }}>
         {children}
       </div>
     </div>

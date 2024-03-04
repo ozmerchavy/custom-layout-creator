@@ -4,17 +4,19 @@ import React from 'react';
 
 /** @returns {React.CSSProperties} */
 function initialCssProps(type, id) {
-  const color = `hsla(${id * 70 % 360}, 18%, 60%, 0.8)`
+  const color = `hsl(${(id + 3) * 70 % 360}, 18%, 60%)`
 
   const divsProps = {
     paddingTop: 8,
     paddingBottom: 8,
     paddingRight: 8,
     paddingLeft: 8,
+    height: 300,
+    width: 300,
   };
 
   const buttonProps = {
-
+    color: 'white',
   };
 
   return {
@@ -33,7 +35,7 @@ function initialCssProps(type, id) {
 const initialRootElement = {
   id: 'root',
   type: 'div',
-  cssProps: { ...initialCssProps('div', -1), backgroundColor: 'lch(93 1.54 220.22)' },
+  cssProps: { ...initialCssProps('div', -1), backgroundColor: 'lch(93 1.54 220.22)', width: "unset", height:"unset" },
   children: [ ],
 }
 

@@ -2,6 +2,12 @@
 
 ## Description
 This project is a layout designer tool built using React, Redux, and Redux Toolkit. It allows users to create and customize layouts with a user-friendly interface. One of its key features is the ability to export layouts as HTML.
+[Try it>>](https://ozmerchavy.github.io/other/layout-creator/)
+
+
+
+
+
 
 ## Features
 - Drag-and-drop interface for adding elements

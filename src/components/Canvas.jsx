@@ -82,7 +82,9 @@ function NestedDropZone({ children, props, id }) {
       ref={drop}
       {...props}
     >
-      {children}
+      <div style={{ opacity: isOver ? 0.5 : 1 }}>
+        {children}
+      </div>
     </div>
   );
 }

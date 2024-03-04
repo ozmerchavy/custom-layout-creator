@@ -4,83 +4,6 @@ import React from 'react';
 
 
 
-const OLD_exampleRootElement = {
-  "id": "root",
-  "type": "div",
-  "cssProps": {
-    "position": "relative",
-    "margin": "1rem",
-    "width": "auto",
-    "height": "auto",
-    "display": "block",
-    "color": "#000000",
-    "backgroundColor": "#edf5ff"
-  },
-  "children": [
-    {
-      "id": "div1",
-      "type": "div",
-      "cssProps": {
-        "margin": "1rem",
-        "padding": "1rem",
-        "color": "blue",
-        "backgroundColor": "#90ee90",
-        "width": "auto",
-        "height": "auto",
-        "display": "block",
-        "position": "static"
-      },
-      "children": [
-        {
-          "id": "button1",
-          "type": "button",
-          "cssProps": {
-            "margin": "0.5rem",
-            "padding": "0.5rem",
-            "color": "white",
-            "backgroundColor": "blue",
-            "width": "auto",
-            "height": "auto",
-            "display": "block",
-            "position": "static"
-          },
-          "children": "Button 1"
-        },
-        {
-          "id": "div2",
-          "type": "div",
-          "cssProps": {
-            "margin": "1rem",
-            "padding": "1rem",
-            "backgroundColor": "lightcoral",
-            "width": "auto",
-            "height": "auto",
-            "display": "block",
-            "position": "static"
-          },
-          "children": [
-            {
-              "id": "button2",
-              "type": "button",
-              "cssProps": {
-                "margin": "0.5rem",
-                "padding": "0.5rem",
-                "color": "white",
-                "backgroundColor": "green",
-                "width": "auto",
-                "height": "auto",
-                "display": "block",
-                "position": "static"
-              },
-              "children": "Button 2"
-            }
-
-          ]
-        }
-      ]
-    }
-  ]
-}
 
 
 
@@ -90,16 +13,16 @@ function initialCssProps() {
   const g = Math.random() * 155 + 100;
   const color = `rgb(${r} ${r} 200)`
   return {
-    paddingTop: '8px',
-    paddingBottom: '8px',
-    paddingRight: '8px',
-    paddingLeft: '8px',
-    marginTop: '8px',
-    marginBottom: '8px',
-    marginRight: '8px',
-    marginLeft: '8px',
-    borderRadius: '3px',
-    margin: '8px',
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingRight: 8,
+    paddingLeft: 8,
+    marginTop: 8,
+    marginBottom: 8,
+    marginRight: 8,
+    marginLeft: 8,
+    borderRadius: 3,
+    margin: 8,
     backgroundColor: color,
   }
 }

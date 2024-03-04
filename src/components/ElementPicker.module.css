@@ -6,4 +6,9 @@
 
 .ElementButton {
   cursor: grab;
+  display: flex;
+  gap: 0.5rem;
+  span {
+    text-transform: capitalize;
+  }
 }

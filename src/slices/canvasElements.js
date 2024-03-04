@@ -112,9 +112,7 @@ const exampleRootElement = {
 }
 
 function updateHistory(state, affectedElementId, previousValue) {
-  // if an element was added, previous value should be undefined.
   state.undoHistory.push({ affectedElementId, previousValue })
-  /// gotta delete redos on any change!
   state.redoHistory = []
 }
 

@@ -2,35 +2,40 @@ import { createSlice } from '@reduxjs/toolkit'
 import { cloneDeep } from 'lodash';
 import React from 'react';
 
-
-
-
-
-
 /** @returns {React.CSSProperties} */
-function initialCssProps() {
+function initialCssProps(type) {
   const r = Math.random() * 155 + 100;
   const g = Math.random() * 155 + 100;
   const color = `rgb(${r} ${r} 200)`
-  return {
+
+  const divsProps = {
     paddingTop: 8,
     paddingBottom: 8,
     paddingRight: 8,
     paddingLeft: 8,
+  };
+
+  const buttonProps = {
+
+  };
+
+  return {
+    ...(type == "div" ? divsProps : buttonProps),
+
     marginTop: 8,
     marginBottom: 8,
     marginRight: 8,
     marginLeft: 8,
+
     borderRadius: 3,
-    margin: 8,
     backgroundColor: color,
   }
 }
 
-const exampleRootElement = {
+const initialRootElement = {
   id: 'root',
   type: 'div',
-  cssProps: {...initialCssProps(), backgroundColor: 'lch(93 1.54 220.22)' },
+  cssProps: {...initialCssProps('div'), backgroundColor: 'lch(93 1.54 220.22)' },
   children: [],
 }
 
@@ -62,8 +67,6 @@ function findParentByID(element, id) {
   return null;
 }
 
-
-
 export function findObjectById(state, id) {
   if (state.id === id) {
     return state;
@@ -79,12 +82,6 @@ export function findObjectById(state, id) {
   return null;
 }
 
-
-
-
-
-
-
 const makeId = (() => {
   let id = 0;
   return () => String(id++);
@@ -93,7 +90,7 @@ const makeId = (() => {
 export const canvasElements = createSlice({
   name: 'canvasElements',
   initialState: {
-    root: exampleRootElement,
+    root: initialRootElement,
     undoHistory: [],
     redoHistory: [],
     idSelected: 'root',
@@ -107,7 +104,7 @@ export const canvasElements = createSlice({
       parent.children.push({
         type,
         id: makeId(),
-        cssProps: initialCssProps(),
+        cssProps: initialCssProps(type),
         children: type === "button" ? "clickme!" : [],
       })
     },

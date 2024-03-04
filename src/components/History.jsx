@@ -19,7 +19,7 @@ export default function History() {
     store.dispatch(redo());
   };
 
-  return (
+  return (  
     <div className={layout.History}>
       <Button type="text" icon={<UndoOutlined />} onClick={handleUndo} disabled={undoHistory.length == 0}>
         Undo

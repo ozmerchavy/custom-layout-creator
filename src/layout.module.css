@@ -34,12 +34,6 @@
     grid-area: header;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
     z-index: 1;
-
-    display: flex;
-    align-items: center;
-    padding-block: 1.5rem;
-    padding-inline: 1.5rem;
-    gap: 5rem;
 }
 
 /* export import elements */

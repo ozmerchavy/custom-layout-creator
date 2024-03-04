@@ -3,10 +3,8 @@ import { cloneDeep } from 'lodash';
 import React from 'react';
 
 /** @returns {React.CSSProperties} */
-function initialCssProps(type) {
-  const r = Math.random() * 155 + 100;
-  const g = Math.random() * 155 + 100;
-  const color = `rgb(${r} ${r} 200)`
+function initialCssProps(type, id) {
+  const color = `hsla(${id * 70 % 360}, 18%, 60%, 0.8)`
 
   const divsProps = {
     paddingTop: 8,
@@ -35,8 +33,8 @@ function initialCssProps(type) {
 const initialRootElement = {
   id: 'root',
   type: 'div',
-  cssProps: {...initialCssProps('div'), backgroundColor: 'lch(93 1.54 220.22)' },
-  children: [],
+  cssProps: { ...initialCssProps('div', -1), backgroundColor: 'lch(93 1.54 220.22)' },
+  children: [ ],
 }
 
 function updateHistory(state, affectedElementId, previousValue) {
@@ -101,10 +99,11 @@ export const canvasElements = createSlice({
       const { parentId, type, } = payload;
       const parent = findObjectById(state.root, parentId);
       updateHistory(state, parent.id, cloneDeep(parent))
+      const id = makeId();
       parent.children.push({
         type,
-        id: makeId(),
-        cssProps: initialCssProps(type),
+        id,
+        cssProps: initialCssProps(type, id),
         children: type === "button" ? "clickme!" : [],
       })
     },
@@ -179,7 +178,7 @@ export const canvasElements = createSlice({
 
 export const {
   addElement, selectElement, hoverElement, modifySelectedElement, modifyButtonText,
-   undo, redo, isThereUndo, isThereRedo, deleteSelectedElement,
+  undo, redo, isThereUndo, isThereRedo, deleteSelectedElement,
   startNewHTML
 } = canvasElements.actions
 export default canvasElements.reducer

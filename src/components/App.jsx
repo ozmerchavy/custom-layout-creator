@@ -8,9 +8,15 @@ import History from "./History";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Header from "./Header";
 
-function Header({ children }) {
-  return <div className={layout.Header}>{children}</div>;
+function ImportExport() {
+  return (
+    <div style={{ display: "flex", gap: "0.5rem" }}>
+      <ImportHTML />
+      <ExportButton />
+    </div>
+  );
 }
 
 export default function App() {
@@ -18,10 +24,7 @@ export default function App() {
     <DndProvider backend={HTML5Backend}>
       <div className={layout.App}>
         <Header>
-          <div style={{ display: "flex", gap: "0.5rem" }}>
-            <ImportHTML />
-            <ExportButton />
-          </div>
+          <ImportExport />
           <History />
           <ElementPicker />
         </Header>

@@ -1,18 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { cloneDeep } from 'lodash';
+import { cloneDeep, unset } from 'lodash';
 import React from 'react';
 
 /** @returns {React.CSSProperties} */
-function initialCssProps(type, id) {
-  const color = `hsl(${(id + 3) * 70 % 360}, 18%, 60%)`
+function initialCssProps(type, id, parent) {
+  const color = `hsl(${(+id + 3) * 70 % 360}, 18%, 60%)`
+
 
   const divsProps = {
     paddingTop: 8,
     paddingBottom: 8,
     paddingRight: 8,
     paddingLeft: 8,
-    height: 300,
-    width: 300,
+    minHeight: 100,
+    minWidth: 100
   };
 
   const buttonProps = {
@@ -35,7 +36,7 @@ function initialCssProps(type, id) {
 const initialRootElement = {
   id: 'root',
   type: 'div',
-  cssProps: { ...initialCssProps('div', -1), backgroundColor: 'lch(93 1.54 220.22)', width: "unset", height:"unset" },
+  cssProps: { ...initialCssProps('div', -1, null), backgroundColor: 'lch(93 1.54 220.22)', width: "unset", height:"unset" },
   children: [ ],
 }
 
@@ -105,7 +106,7 @@ export const canvasElements = createSlice({
       parent.children.push({
         type,
         id,
-        cssProps: initialCssProps(type, id),
+        cssProps: initialCssProps(type, id, parent),
         children: type === "button" ? "clickme!" : [],
       })
     },

@@ -82,6 +82,9 @@ export default function PropsPicker() {
                   onChange={(newValue) => onChange("width", newValue)}
                   className={styles.InputNumber}
                   variant="borderless"
+                  style={{ maxWidth:"9ch"}}
+                  step={20}
+
                 />
               </Form.Item>
 
@@ -90,6 +93,9 @@ export default function PropsPicker() {
                   value={cssProps.height}
                   onChange={(newValue) => onChange("height", newValue)}
                   variant="borderless"
+                  style={{ maxWidth:"9ch"}}
+                  step={20}
+
                 />
               </Form.Item>
             </Flex>

@@ -116,7 +116,6 @@ export const canvasElements = createSlice({
     },
 
     modifySelectedElement: (state, { payload }) => {
-      if (state.idSelected == "root") { return }
       const cssProps = payload;
       const selectedElement = findObjectById(state.root, state.idSelected);
 

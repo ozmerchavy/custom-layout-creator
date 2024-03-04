@@ -7,6 +7,7 @@ import { Button } from "antd";
 import { useDrop } from 'react-dnd';
 import { store } from "../store.js";
 import { addElement } from "../slices/canvasElements";
+import _ from "lodash";
 
 function elementClicked(elementID) {
   store.dispatch(selectElement(elementID));
@@ -72,14 +73,17 @@ function NestedDropZone({ children, props, id }) {
     }),
   }));
 
+  if (isOver) {
+    props = _.cloneDeep(props);
+    props.style.opacity = 0.5;
+  }
+
   return (
     <div
       ref={drop}
       {...props}
     >
-      <div style={{ opacity: isOver ? 0.5 : 1, display: 'contents' }}>
-        {children}
-      </div>
+      {children}
     </div>
   );
 }

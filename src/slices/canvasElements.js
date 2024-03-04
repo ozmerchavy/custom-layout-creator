@@ -37,7 +37,8 @@ const initialRootElement = {
   id: 'root',
   type: 'div',
   cssProps: { ...initialCssProps('div', -1, null), backgroundColor: 'lch(93 1.54 220.22)', width: "unset", height: "unset" },
-  children: [],
+  children: [
+  ],
 }
 
 function updateHistory(state, affectedElementId, previousValue) {

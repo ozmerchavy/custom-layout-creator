@@ -1,9 +1,6 @@
 import layout from "../layout.module.css";
 import styles from "./ElementPicker.module.css";
-import { IonIcon } from "@ionic/react";
-import * as ion from "ionicons/icons";
 import { useDrag } from "react-dnd";
-import { useDragLayer } from "react-dnd";
 import { DragOutlined } from "@ant-design/icons";
 
 function ItemOption({ type }) {

@@ -1,10 +1,8 @@
 import layout from "../layout.module.css";
-import {selectElement} from "../slices/canvasElements.js"
 import React, { useState } from 'react';
-import {store} from "../store.js";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux';
 import { Button, Modal } from 'antd';
-import { CopyBlock, CodeBlock } from 'react-code-blocks';
+import { CodeBlock } from 'react-code-blocks';
 import { saveAs } from 'file-saver';
 
 

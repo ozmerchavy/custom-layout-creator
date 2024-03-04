@@ -1,8 +1,8 @@
 import layout from "../layout.module.css";
 import { useSelector } from "react-redux";
 import style from "./Canvas.module.css";
-import { selectElement, hoverElement } from "../slices/canvasElements";
-import React, { useEffect, useState } from "react";
+import { selectElement } from "../slices/canvasElements";
+import React from "react";
 import { Button } from "antd";
 import { useDrop } from 'react-dnd';
 import { store } from "../store.js";

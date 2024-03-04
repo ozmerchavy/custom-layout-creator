@@ -1,4 +1,3 @@
-import { useRef, useState } from "react";
 import layout from "../layout.module.css";
 import styles from "./PropsPicker.module.css";
 import { useSelector, useDispatch } from "react-redux";
@@ -9,7 +8,7 @@ import {
   modifyButtonText,
   deleteSelectedElement,
 } from "../slices/canvasElements";
-import { Layout, Collapse, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
+import { Collapse, Input, Form, InputNumber, Select, ColorPicker, Button, Flex, Divider } from "antd";
 
 function findAllDivsIds(node) {
   const ids = [];

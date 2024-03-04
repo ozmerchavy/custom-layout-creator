@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
 import layout from "../layout.module.css";
 import { Upload, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';

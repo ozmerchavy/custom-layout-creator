@@ -101,7 +101,7 @@ export default function PropsPicker() {
         <Collapse ghost>
           <Collapse.Panel header="Padding" key="2">
             <Form.Item>
-              <div style={{ marginLeft: "6em" }}>
+              <div>
                 <div
                   style={{
                     display: "flex",
@@ -122,7 +122,6 @@ export default function PropsPicker() {
                       gap: "1.5px",
                     }}
                   >
-                    <Label text="Padding" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
                     <InputNumber
                       placeholder="left"
                       style={{ width: "8ch" }}
@@ -154,7 +153,7 @@ export default function PropsPicker() {
         <Collapse ghost>
           <Collapse.Panel header="Margin" key="3">
             <Form.Item>
-              <div style={{ marginLeft: "6em" }}>
+              <div>
                 <div
                   style={{
                     display: "flex",
@@ -175,7 +174,6 @@ export default function PropsPicker() {
                       gap: "1.5px",
                     }}
                   >
-                    <Label text="Margin" style={{ position: "absolute", left: 0, paddingBlock: 4 }} />
                     <InputNumber
                       placeholder="left"
                       style={{ width: "8ch" }}

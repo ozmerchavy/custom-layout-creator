@@ -29,12 +29,7 @@ function renderElement(node, idSelected, idHovered) {
 
   const props = { style: cssProps };
   if (node.id == idSelected) {
-    if (node.id != "root") {
-      props.className = style.selectedElement;
-    }
-  }
-  if (node.id == idHovered) {
-    props.className = style.elementShine;
+    props.className = style.selectedElement;
   }
 
   props.onClick = (event) => {

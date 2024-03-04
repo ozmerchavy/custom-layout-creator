@@ -113,10 +113,7 @@ export const canvasElements = createSlice({
       const elementId = payload;
       state.idSelected = elementId
     },
-    hoverElement: (state, { payload }) => {
-      // const elementId = payload;
-      // state.idHovered = elementId
-    },
+
     modifySelectedElement: (state, { payload }) => {
       const cssProps = payload;
       const selectedElement = findObjectById(state.root, state.idSelected);

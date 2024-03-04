@@ -25,7 +25,7 @@ function renderElement(node, idSelected, idHovered) {
     ? node.children.map((child) =>
         renderElement(child, idSelected, idHovered)
       )
-    : node.children;
+    : <span key={node.id}>{node.children}</span>;
 
   const props = { style: cssProps };
   if (node.id == idSelected) {
@@ -42,9 +42,9 @@ function renderElement(node, idSelected, idHovered) {
     elementClicked(node.id);
   };
 
-  if (node.type == 'button') return <Button {...props}>{children}</Button>
+  if (node.type == 'button') return <Button key={node.id} {...props}>{children}</Button>
 
-  if (node.type == 'div') return <NestedDropZone props={props} id={node.id}>{children}</NestedDropZone>
+  if (node.type == 'div') return <NestedDropZone key={node.id} props={props} id={node.id}>{children}</NestedDropZone>
 }
 
 export default function Canvas() {

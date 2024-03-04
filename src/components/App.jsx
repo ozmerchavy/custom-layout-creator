@@ -10,23 +10,15 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Header from "./Header";
 
-function ImportExport() {
-  return (
-    <div style={{ display: "flex", gap: "0.5rem" }}>
-      <ImportHTML />
-      <ExportButton />
-    </div>
-  );
-}
 
 export default function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={layout.App}>
         <Header>
-          <ImportExport />
           <History />
           <ElementPicker />
+          <ExportButton />
         </Header>
         <Canvas />
         <PropsPicker />

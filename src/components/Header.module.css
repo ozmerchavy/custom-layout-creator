@@ -2,5 +2,16 @@
   display: flex;
   align-items: center;
   padding: 1.5rem;
+  padding-right: 5rem;
+
   gap: 5rem;
+}
+
+.Header > :last-child::before {
+  content: '';
+  flex-grow: 1;
+}
+
+.Header > :last-child {
+  margin-left: auto; 
 }

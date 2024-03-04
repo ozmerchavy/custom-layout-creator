@@ -177,21 +177,8 @@ export const canvasElements = createSlice({
     redoHistory: [],
     idSelected: 'root',
     idHovered: undefined,
-    drag: null,
   },
   reducers: {
-    startDrag: (state, { payload }) => {
-      const { type, coords } = payload;
-      state.drag = { type, coords };
-    },
-    moveDrag: (state, { payload }) => {
-      const coords = payload;
-      state.drag.coords = coords;
-    },
-    endDrag: (state, { payload }) => {
-      state.drag = null;
-
-    },
     addElement: (state, { payload }) => {
       const { parentId, type, } = payload;
       const parent = findObjectById(state.root, parentId);
@@ -225,7 +212,6 @@ export const canvasElements = createSlice({
       selectedElement.children = newText
     },
     undo: (state) => {
-
       const lastChange = state.undoHistory.pop();
       if (!lastChange) return;
       const { affectedElementId, previousValue } = lastChange;

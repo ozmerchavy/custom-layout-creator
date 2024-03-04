@@ -8,8 +8,9 @@ import { useDragLayer } from 'react-dnd';
 function ItemOption({ type }) {
   return (
     <span className={styles.ElementButton}>
-      <IonIcon icon={ion.addSharp} />
-      {/* todo icon depends on type */}
+
+      {type == "button" ?<IonIcon icon={ion.squareOutline} /> : <IonIcon icon={ion.addCircleOutline} /> }
+      
     </span>
   );
 }
